@@ -1,16 +1,17 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  mode: "development",
   entry: {
-    popup: path.join(__dirname, "src/index.tsx"),
-    background: path.join(__dirname, "src/background.ts"),
+    index: path.join(__dirname, 'src/index.tsx'),
+    background: path.join(__dirname, 'src/background.ts'),
   },
   output: {
-    path: path.join(__dirname, "build"),
-    filename: "[name].js",
-    assetModuleFilename: "assets/[hash][ext]",
+    path: path.join(__dirname, 'build'),
+    filename: '[name].js',
+    assetModuleFilename: 'assets/[hash][ext]',
+    clean: true,
   },
   devServer: {
     compress: true,
@@ -21,31 +22,42 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: ["babel-loader"],
+        use: ['babel-loader'],
       },
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        loader: "ts-loader",
+        loader: 'ts-loader',
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.png/,
-        type: "asset/resource",
+        type: 'asset/resource',
       },
     ],
   },
   resolve: {
-    modules: [__dirname, "src", "node_modules"],
-    extensions: [".js", ".jsx", ".tsx", ".ts"],
+    modules: [__dirname, 'src', 'node_modules'],
+    extensions: ['.js', '.jsx', '.tsx', '.ts'],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./public/index.html",
+      template: './public/index.html',
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: 'public',
+          to: '.',
+          globOptions: {
+            ignore: ['**/index.html'],
+          },
+        },
+      ],
     }),
   ],
-  stats: "summary",
+  stats: 'errors-only',
 };
