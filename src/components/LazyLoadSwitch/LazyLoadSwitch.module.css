@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.switch {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.switch.yc-switch__indicator::before {
+  background: linear-gradient(180deg, #81ff18 0%, #87f823 100%);
+}
