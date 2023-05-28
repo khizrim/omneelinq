@@ -5,7 +5,7 @@ import { LAZYLOAD_SWITCH_TEXTS } from '../../utils/constants';
 
 import styles from './LazyLoadSwitch.module.css';
 
-type LazyLoadSwitchProps = {
+export type LazyLoadSwitchProps = {
   lazyLoad: boolean;
   onToggle: (checked: boolean) => void;
 };

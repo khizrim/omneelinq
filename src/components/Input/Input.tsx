@@ -3,7 +3,7 @@ import { TextInput } from '@gravity-ui/uikit';
 
 import { TEXTAREA_PLACEHOLDER } from '../../utils/constants';
 
-import styles from './Input.modules.css';
+import styles from './Input.module.css';
 
 type InputProps = {
   value: string;
@@ -16,7 +16,7 @@ export const Input = ({ value, onChange }: InputProps) => {
       className={styles.input}
       size={'m'}
       type={'text'}
-      minRows={10}
+      rows={10}
       onChange={onChange}
       placeholder={TEXTAREA_PLACEHOLDER}
       value={value}
