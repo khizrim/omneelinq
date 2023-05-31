@@ -16,13 +16,10 @@ export const LazyLoadSwitch = ({ lazyLoad, onToggle }: LazyLoadSwitchProps) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.switch}>
+      <Switch checked={lazyLoad} onChange={handleToggle} />
       <Text>{LAZYLOAD_SWITCH_TEXTS.label}</Text>
-
-      <div className={styles.switch}>
-        <Switch checked={lazyLoad} onChange={handleToggle} />
-        <HelpPopover content={LAZYLOAD_SWITCH_TEXTS.helpPopover} />
-      </div>
+      <HelpPopover content={LAZYLOAD_SWITCH_TEXTS.helpPopover} />
     </div>
   );
 };
