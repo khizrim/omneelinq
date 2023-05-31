@@ -28,8 +28,10 @@ export const Button = ({
   return tooltip ? (
     <ActionTooltip
       title={tooltip.title}
+      openDelay={1000}
       description={tooltip.description}
       hotkey={tooltip.hotkey}
+      placement={'top-end'}
     >
       <ButtonComponent size={size} disabled={disabled} onClick={onClick}>
         {icon && <Icon data={icon} />}

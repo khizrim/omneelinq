@@ -1,9 +1,7 @@
 import React from 'react';
-import { HelpPopover, Switch, Text } from '@gravity-ui/uikit';
+import Switch from '../Switch';
 
 import { LAZYLOAD_SWITCH_TEXTS } from '../../utils/constants';
-
-import styles from './LazyLoadSwitch.module.css';
 
 export type LazyLoadSwitchProps = {
   lazyLoad: boolean;
@@ -11,15 +9,12 @@ export type LazyLoadSwitchProps = {
 };
 
 export const LazyLoadSwitch = ({ lazyLoad, onToggle }: LazyLoadSwitchProps) => {
-  const handleToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onToggle(event.target.checked);
-  };
-
   return (
-    <div className={styles.switch}>
-      <Switch checked={lazyLoad} onChange={handleToggle} />
-      <Text>{LAZYLOAD_SWITCH_TEXTS.label}</Text>
-      <HelpPopover content={LAZYLOAD_SWITCH_TEXTS.helpPopover} />
-    </div>
+    <Switch
+      label={LAZYLOAD_SWITCH_TEXTS.label}
+      popover={LAZYLOAD_SWITCH_TEXTS.helpPopover}
+      state={lazyLoad}
+      onToggle={onToggle}
+    />
   );
 };

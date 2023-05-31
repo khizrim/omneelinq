@@ -1,5 +1,5 @@
 .app {
-  width: 520px;
+  width: 680px;
   max-height: 580px;
 }
 
@@ -16,5 +16,12 @@
 .buttons {
   display: flex;
   gap: 12px;
+  align-items: center;
+}
+
+.switches {
+  display: flex;
+  flex-grow: 1;
+  gap: 18px;
   align-items: center;
 }
