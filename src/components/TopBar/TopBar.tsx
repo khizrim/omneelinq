@@ -1,19 +1,18 @@
 import React from 'react';
 
 import Logo from '../Logo';
-import LazyLoadSwitch from '../LazyLoadSwitch';
-
-import type { LazyLoadSwitchProps } from '../LazyLoadSwitch/LazyLoadSwitch';
 
 import styles from './TopBar.module.css';
+import { Label, Link } from '@gravity-ui/uikit';
 
-type TopBarProps = LazyLoadSwitchProps;
-
-export const TopBar = ({ lazyLoad, onToggle }: TopBarProps) => {
+export const TopBar = () => {
   return (
     <div className={styles.topBar}>
       <Logo />
-      <LazyLoadSwitch lazyLoad={lazyLoad} onToggle={onToggle} />
+      <Label theme={'info'}>Beta 0.1</Label>
+      <Link href={'https://khizrim.ru'} target="_blank">
+        by Khizrim
+      </Link>
     </div>
   );
 };

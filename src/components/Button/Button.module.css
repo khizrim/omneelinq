@@ -1,0 +1,8 @@
+.button {
+  display: flex;
+  gap: 0;
+  align-items: center;
+
+  border: 1px solid var(--yc-color-base-generic);
+  border-radius: var(--yc-border-radius-l);
+}

@@ -8,11 +8,13 @@ import styles from './Input.module.css';
 type InputProps = {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  errorMessage?: string;
 };
 
-export const Input = ({ value, onChange }: InputProps) => {
+export const Input = ({ value, onChange, errorMessage }: InputProps) => {
   return (
     <TextInput
+      autoFocus={true}
       className={styles.input}
       size={'m'}
       type={'text'}
@@ -21,6 +23,7 @@ export const Input = ({ value, onChange }: InputProps) => {
       placeholder={TEXTAREA_PLACEHOLDER}
       value={value}
       multiline
+      error={errorMessage}
       hasClear
     />
   );
