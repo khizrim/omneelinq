@@ -1,10 +1,20 @@
-export const extractUrls = (text: string): string => {
-  const urlRegex =
-    /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()[\]{};:'".,<>?«»“”‘’]))/gi;
-  const matches = text.match(urlRegex);
+import { URL_REGEX } from '../utils/constants';
+
+type ExtractedUrlsProps = {
+  hasValidUrls: boolean;
+  text: string;
+};
+export const extractUrls = (text: string): ExtractedUrlsProps => {
+  const matches = text.match(URL_REGEX);
+
+  const result = { hasValidUrls: false, text: text };
 
   if (!matches) {
-    return '';
+    return result;
   }
-  return matches.join('\n');
+
+  result.hasValidUrls = true;
+  result.text = matches.join('\n');
+
+  return result;
 };
