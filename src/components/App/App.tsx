@@ -8,6 +8,7 @@ import Button from '../Button';
 
 import {
   EXTRACT_BUTTON_TOOLTIP,
+  LOCAL_STORAGE_PASTE_HTML_KEY,
   LOCAL_STORAGE_SWITCH_KEY,
   LOCAL_STORAGE_URLS_KEY,
   OPEN_ALL_URLS_BUTTON_TOOLTIP,
@@ -19,6 +20,8 @@ import styles from './App.module.css';
 import { extractUrls } from '../../helpers/extract-urls-from-text';
 import { useModEnterKeyPress } from '../../hooks/useModEnterKeyPress';
 import LazyLoadSwitch from '../LazyLoadSwitch';
+import { usePaste } from '../../hooks/usePaste';
+import PasteHtmlSwitch from '../PasteHtmlSwitch';
 
 export const App = () => {
   const [urls, setUrls] = React.useState<string>(
@@ -29,10 +32,38 @@ export const App = () => {
     localStorage.getItem(LOCAL_STORAGE_SWITCH_KEY) === 'on'
   );
 
+  const [pasteHtml, setPasteHtml] = React.useState<boolean>(
+    localStorage.getItem(LOCAL_STORAGE_PASTE_HTML_KEY) === 'on'
+  );
+
   const [isButtonDisabled, setIsButtonDisabled] =
     React.useState<boolean>(false);
 
   const [errorMessage, setErrorMessage] = React.useState<string>('');
+
+  const handlePaste = React.useCallback(
+    (e: ClipboardEvent) => {
+      e.preventDefault();
+
+      const html = e.clipboardData?.getData('text/html');
+      const plain = e.clipboardData?.getData('text/plain');
+
+      if (pasteHtml) {
+        setUrls(html || '');
+      } else {
+        setUrls(plain || '');
+      }
+    },
+    [pasteHtml]
+  );
+
+  const handlePasteChange = React.useCallback(() => {
+    setPasteHtml((prev) => !prev);
+    localStorage.setItem(
+      LOCAL_STORAGE_PASTE_HTML_KEY,
+      !pasteHtml ? 'on' : 'off'
+    );
+  }, [pasteHtml]);
 
   const handleInputChange = React.useCallback(
     (e: { target: { value: React.SetStateAction<string> } }) => {
@@ -87,6 +118,7 @@ export const App = () => {
   }, [handleUrlExtraction, urls, lazyLoad, setErrorMessage]);
 
   useModEnterKeyPress(handleOpenAllUrls);
+  usePaste(handlePaste);
 
   return (
     <ThemeProvider>
@@ -99,7 +131,13 @@ export const App = () => {
             errorMessage={errorMessage}
           />
           <div className={styles.buttons}>
-            <LazyLoadSwitch lazyLoad={lazyLoad} onToggle={handleSwitch} />
+            <div className={styles.switches}>
+              <LazyLoadSwitch lazyLoad={lazyLoad} onToggle={handleSwitch} />
+              <PasteHtmlSwitch
+                pasteHtml={pasteHtml}
+                onToggle={handlePasteChange}
+              />
+            </div>
             <ClipboardButton text={urls} size={18} />
             <Button
               text={'Extract'}
