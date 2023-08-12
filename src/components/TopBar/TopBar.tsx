@@ -9,7 +9,7 @@ export const TopBar = () => {
   return (
     <div className={styles.topBar}>
       <Logo />
-      <Label theme={'success'}>0.1.0 Beta</Label>
+      <Label theme={'success'}>0.1.1 Beta</Label>
       <Link href={'https://khizrim.ru'} target="_blank">
         by khizrim
       </Link>

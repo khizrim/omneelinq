@@ -83,7 +83,9 @@ export const App = () => {
 
   const handleUrlExtraction = React.useCallback(() => {
     const extractedUrls = extractUrls(urls);
+
     setUrls(extractedUrls.text);
+
     localStorage.setItem(LOCAL_STORAGE_URLS_KEY, extractedUrls.text);
 
     if (!extractedUrls.hasValidUrls) {

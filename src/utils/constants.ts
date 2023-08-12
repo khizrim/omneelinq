@@ -5,7 +5,7 @@ export const LOCAL_STORAGE_SWITCH_KEY = 'switch-state';
 export const LOCAL_STORAGE_PASTE_HTML_KEY = 'paste-html';
 
 export const URL_REGEX =
-  /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()[\]{};:'".,<>?«»“”‘’]))/gi;
+  /\b(?:https?|ftp):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]*[-A-Za-z0-9+&@#/%=~_|]/gi;
 
 export const LAZYLOAD_SWITCH_TEXTS = {
   label: 'Open Links One by One',
