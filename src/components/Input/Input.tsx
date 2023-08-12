@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput } from '@gravity-ui/uikit';
+import { TextArea } from '@gravity-ui/uikit';
 
 import { TEXTAREA_PLACEHOLDER } from '../../utils/constants';
 
@@ -14,16 +14,14 @@ type InputProps = {
 export const Input = ({ value, onChange, errorMessage }: InputProps) => {
   return (
     <>
-      <TextInput
+      <TextArea
         autoFocus={true}
         className={styles.input}
         size={'m'}
-        type={'text'}
         rows={10}
         onChange={onChange}
         placeholder={TEXTAREA_PLACEHOLDER}
         value={value}
-        multiline
         error={errorMessage}
         hasClear
       />
