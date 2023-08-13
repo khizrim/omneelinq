@@ -30,12 +30,10 @@ export const Switch = ({
         title={label || popover?.slice(0, 16) || ''}
         description={popover}
         openDelay={1000}
-        placement={'top-start'}
       >
         <SwitchComponent size={'m'} checked={state} onChange={handleToggle} />
       </ActionTooltip>
       <Text>{label}</Text>
-      {/*<HelpPopover content={popover} />*/}
     </div>
   );
 };

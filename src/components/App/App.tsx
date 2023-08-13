@@ -1,10 +1,16 @@
 import React from 'react';
+
 import { ClipboardButton, ThemeProvider } from '@gravity-ui/uikit';
-import { ArrowUpRightFromSquare } from '@gravity-ui/icons';
+import {
+  ArrowDownFromLine,
+  ArrowUpRightFromSquare,
+  BroomMotion,
+} from '@gravity-ui/icons';
 
 import TopBar from '../TopBar';
 import Input from '../Input';
 import Button from '../Button';
+import Options from '../Options';
 
 import {
   EXTRACT_BUTTON_TOOLTIP,
@@ -12,6 +18,7 @@ import {
   LOCAL_STORAGE_SWITCH_KEY,
   LOCAL_STORAGE_URLS_KEY,
   OPEN_ALL_URLS_BUTTON_TOOLTIP,
+  PARSE_TAB_URLS_BUTTON_TOOLTIP,
   VALIDATION_ERROR_TEXTS,
 } from '../../utils/constants';
 
@@ -19,9 +26,8 @@ import styles from './App.module.css';
 
 import { extractUrls } from '../../helpers/extract-urls-from-text';
 import { useModEnterKeyPress } from '../../hooks/useModEnterKeyPress';
-import LazyLoadSwitch from '../LazyLoadSwitch';
 import { usePaste } from '../../hooks/usePaste';
-import PasteHtmlSwitch from '../PasteHtmlSwitch';
+import { parseTabUrls } from '../../helpers/parse-tab-urls';
 
 export const App = () => {
   const [urls, setUrls] = React.useState<string>(
@@ -45,13 +51,12 @@ export const App = () => {
     (e: ClipboardEvent) => {
       e.preventDefault();
 
-      const html = e.clipboardData?.getData('text/html');
-      const plain = e.clipboardData?.getData('text/plain');
-
       if (pasteHtml) {
-        setUrls(html || '');
+        const html = e.clipboardData?.getData('text/html') || '';
+        setUrls((prev) => prev + html);
       } else {
-        setUrls(plain || '');
+        const plain = e.clipboardData?.getData('text/plain') || '';
+        setUrls((prev) => prev + plain);
       }
     },
     [pasteHtml]
@@ -95,6 +100,15 @@ export const App = () => {
     return extractedUrls;
   }, [urls]);
 
+  const handleTabsParsing = React.useCallback(async () => {
+    try {
+      const currentTabs = await parseTabUrls();
+      setUrls(currentTabs.join('\n'));
+    } catch (error) {
+      console.error('Error parsing tab URLs:', error);
+    }
+  }, []);
+
   const getUrlsArray = (text: string) =>
     text.split('\n').filter((url) => url.trim() !== '');
 
@@ -127,34 +141,48 @@ export const App = () => {
       <div className={styles.app}>
         <div className={styles.container}>
           <TopBar />
-          <Input
-            value={urls}
-            onChange={handleInputChange}
-            errorMessage={errorMessage}
+          <Options
+            lazyLoad={lazyLoad}
+            onToggle={handleSwitch}
+            pasteHtml={pasteHtml}
+            onToggle1={handlePasteChange}
           />
-          <div className={styles.buttons}>
-            <div className={styles.switches}>
-              <LazyLoadSwitch lazyLoad={lazyLoad} onToggle={handleSwitch} />
-              <PasteHtmlSwitch
-                pasteHtml={pasteHtml}
-                onToggle={handlePasteChange}
+          <section className={styles.form}>
+            <Input
+              value={urls}
+              onChange={handleInputChange}
+              errorMessage={errorMessage}
+            />
+            <div className={styles.buttons}>
+              <Button
+                size={'m'}
+                icon={ArrowDownFromLine}
+                text={'Parse Tabs'}
+                onClick={() => void handleTabsParsing()}
+                tooltip={PARSE_TAB_URLS_BUTTON_TOOLTIP}
               />
+              <div className={styles.cta}>
+                <ClipboardButton text={urls} size={18} />
+                <Button
+                  size={'m'}
+                  icon={BroomMotion}
+                  text={'URLs Only'}
+                  disabled={isButtonDisabled}
+                  onClick={handleUrlExtraction}
+                  tooltip={EXTRACT_BUTTON_TOOLTIP}
+                />
+                <Button
+                  size={'m'}
+                  icon={ArrowUpRightFromSquare}
+                  view={'action'}
+                  text={'Open All'}
+                  disabled={isButtonDisabled}
+                  onClick={handleOpenAllUrls}
+                  tooltip={OPEN_ALL_URLS_BUTTON_TOOLTIP}
+                />
+              </div>
             </div>
-            <ClipboardButton text={urls} size={18} />
-            <Button
-              text={'Extract'}
-              disabled={isButtonDisabled}
-              onClick={handleUrlExtraction}
-              tooltip={EXTRACT_BUTTON_TOOLTIP}
-            />
-            <Button
-              icon={ArrowUpRightFromSquare}
-              text={'Open All'}
-              disabled={isButtonDisabled}
-              onClick={handleOpenAllUrls}
-              tooltip={OPEN_ALL_URLS_BUTTON_TOOLTIP}
-            />
-          </div>
+          </section>
         </div>
       </div>
     </ThemeProvider>

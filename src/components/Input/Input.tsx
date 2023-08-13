@@ -18,7 +18,7 @@ export const Input = ({ value, onChange, errorMessage }: InputProps) => {
         autoFocus={true}
         className={styles.input}
         size={'m'}
-        rows={10}
+        rows={15}
         onChange={onChange}
         placeholder={TEXTAREA_PLACEHOLDER}
         value={value}

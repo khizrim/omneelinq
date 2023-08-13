@@ -8,8 +8,8 @@ import styles from './Logo.module.css';
 export const Logo = () => {
   return (
     <div className={styles.container}>
-      <img width={32} height={32} src={logo} alt="Omneelinq" />
-      <Text as="h1" variant="header-1">
+      <img width={24} height={24} src={logo} alt="Omneelinq" />
+      <Text as="h1" variant="header-1" className={styles.title}>
         Omneelinq
       </Text>
     </div>
