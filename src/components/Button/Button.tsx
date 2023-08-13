@@ -3,6 +3,7 @@ import React from 'react';
 import {
   ActionTooltip,
   Button as ButtonComponent,
+  ButtonView,
   Icon,
 } from '@gravity-ui/uikit';
 
@@ -14,6 +15,7 @@ type ButtonProps = {
   disabled?: boolean;
   text: string;
   tooltip?: { [key: string]: string };
+  view?: ButtonView;
   onClick: () => void;
 };
 
@@ -23,6 +25,7 @@ export const Button = ({
   disabled = false,
   text,
   tooltip,
+  view,
   onClick,
 }: ButtonProps) => {
   return tooltip ? (
@@ -33,7 +36,12 @@ export const Button = ({
       hotkey={tooltip.hotkey}
       placement={'top-end'}
     >
-      <ButtonComponent size={size} disabled={disabled} onClick={onClick}>
+      <ButtonComponent
+        size={size}
+        disabled={disabled}
+        onClick={onClick}
+        view={view}
+      >
         {icon && <Icon data={icon} />}
         {text}
       </ButtonComponent>

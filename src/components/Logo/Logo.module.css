@@ -4,3 +4,7 @@
   gap: 8px;
   align-items: center;
 }
+
+.title {
+  margin: 0;
+}

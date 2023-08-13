@@ -4,6 +4,7 @@ export const usePaste = (callback: (e: ClipboardEvent) => void) => {
   useEffect(() => {
     const handlePaste = (e: ClipboardEvent) => {
       e.preventDefault();
+
       callback(e);
     };
 

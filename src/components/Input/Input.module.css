@@ -1,6 +1,6 @@
 .input {
+  height: 272px;
   line-height: 1.6;
-  background-color: var(--yc-color-base-generic-ultralight);
 }
 
 .input textarea::placeholder {

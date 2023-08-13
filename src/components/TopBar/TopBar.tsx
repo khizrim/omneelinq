@@ -1,5 +1,6 @@
 import React from 'react';
-import { Label, Link } from '@gravity-ui/uikit';
+import { Icon, Link } from '@gravity-ui/uikit';
+import { Bug } from '@gravity-ui/icons';
 
 import Logo from '../Logo';
 
@@ -9,9 +10,14 @@ export const TopBar = () => {
   return (
     <div className={styles.topBar}>
       <Logo />
-      <Label theme={'success'}>0.1.1 Beta</Label>
-      <Link href={'https://khizrim.ru'} target="_blank">
-        by khizrim
+      <Link
+        className={styles.report}
+        href={
+          'mailto:khizrim@khizrim.ru?subject=A new bug discovered in Omneelinq!'
+        }
+        aria-label={'Report a Bug'}
+      >
+        <Icon data={Bug} />
       </Link>
     </div>
   );
