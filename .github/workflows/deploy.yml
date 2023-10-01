@@ -1,9 +1,9 @@
 name: Publish Chrome Extension
 
 on:
-  push:
-    branches:
-      - master
+  release:
+    types:
+      - published
 
 jobs:
   publish:
@@ -41,3 +41,8 @@ jobs:
           client-id: ${{ secrets.CLIENT_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
           refresh-token: ${{ secrets.REFRESH_TOKEN }}
+
+      - name: Semantic Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release

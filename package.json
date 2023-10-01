@@ -1,6 +1,6 @@
 {
   "name": "omneelinq",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "index.tsx",
   "scripts": {
@@ -25,6 +25,7 @@
     "@babel/preset-typescript": "^7.23.0",
     "@gravity-ui/icons": "^2.6.0",
     "@gravity-ui/uikit": "^5.16.0",
+    "@semantic-release/git": "^10.0.1",
     "@types/chrome": "^0.0.246",
     "@types/react": "^18.2.23",
     "@types/react-dom": "^18.2.8",
@@ -37,6 +38,8 @@
     "eslint-config-prettier": "^9.0.0",
     "html-webpack-plugin": "^5.5.3",
     "prettier": "^3.0.3",
+    "semantic-release": "^22.0.5",
+    "semantic-release-chrome": "^3.2.0",
     "style-loader": "^3.3.3",
     "stylelint": "^15.10.3",
     "stylelint-config-clean-order": "^5.2.0",

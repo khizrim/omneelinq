@@ -1,7 +1,7 @@
 {
   "name": "Omneelinq: Multiple URL opener",
   "description": "Enhance browsing efficiency: open multiple URLs instantly, extract URLs from text, and more.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "manifest_version": 3,
   "action": {
     "default_popup": "index.html",
