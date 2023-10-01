@@ -1,7 +1,7 @@
 {
-  "name": "Omneelinq",
-  "description": "Chrome extension for opening multiple links at once",
-  "version": "1.0",
+  "name": "Omneelinq: Multiple URL opener",
+  "description": "Enhance browsing efficiency: open multiple URLs instantly, extract URLs from text, and more.",
+  "version": "1.0.0",
   "manifest_version": 3,
   "action": {
     "default_popup": "index.html",
