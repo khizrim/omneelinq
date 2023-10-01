@@ -31,10 +31,10 @@ jobs:
         run: zip -r extension.zip ./build
 
       - name: Publish Extension to Chrome Web Store
-        uses: juliustrip/actions-chrome-web-store@v1
+        uses: mnao305/chrome-extension-upload@v4.0.1
         with:
-          extensionId: ${{ secrets.EXTENSION_ID }}
-          clientId: ${{ secrets.CLIENT_ID }}
-          clientSecret: ${{ secrets.CLIENT_SECRET }}
-          refreshToken: ${{ secrets.REFRESH_TOKEN }}
-          zipPath: ./extension.zip
+          file-path: ./extension.zip
+          extension-id: ${{ secrets.EXTENSION_ID }}
+          client-id: ${{ secrets.CLIENT_ID }}
+          client-secret: ${{ secrets.CLIENT_SECRET }}
+          refresh-token: ${{ secrets.REFRESH_TOKEN }}
