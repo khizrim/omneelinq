@@ -1,0 +1,40 @@
+name: Publish Chrome Extension
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Extension
+        run: pnpm run build
+
+      - name: Zip Extension
+        run: zip -r extension.zip ./build
+
+      - name: Publish Extension to Chrome Web Store
+        uses: juliustrip/actions-chrome-web-store@v1
+        with:
+          extensionId: ${{ secrets.EXTENSION_ID }}
+          clientId: ${{ secrets.CLIENT_ID }}
+          clientSecret: ${{ secrets.CLIENT_SECRET }}
+          refreshToken: ${{ secrets.REFRESH_TOKEN }}
+          zipPath: ./extension.zip
