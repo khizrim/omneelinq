@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Text } from '@gravity-ui/uikit';
 
 import logo from '../../images/logo.svg';
