@@ -6,7 +6,6 @@ import {
   ButtonView,
   Icon,
 } from '@gravity-ui/uikit';
-
 import type { SVGIconData } from '@gravity-ui/uikit/build/cjs/components/Icon/types';
 
 type ButtonProps = {

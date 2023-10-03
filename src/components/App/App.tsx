@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { SetStateAction, useCallback, useState } from 'react';
 
-import { ClipboardButton, ThemeProvider } from '@gravity-ui/uikit';
 import {
   ArrowDownFromLine,
   ArrowUpRightFromSquare,
   BroomMotion,
 } from '@gravity-ui/icons';
+import { ClipboardButton, ThemeProvider } from '@gravity-ui/uikit';
 
-import TopBar from '../TopBar';
-import Input from '../Input';
-import Button from '../Button';
-import Options from '../Options';
-
+import { extractUrls } from '../../helpers/extract-urls-from-text';
+import { parseTabUrls } from '../../helpers/parse-tab-urls';
+import { useModEnterKeyPress } from '../../hooks/useModEnterKeyPress';
+import { usePaste } from '../../hooks/usePaste';
 import {
   EXTRACT_BUTTON_TOOLTIP,
   LOCAL_STORAGE_PASTE_HTML_KEY,
@@ -21,33 +20,31 @@ import {
   PARSE_TAB_URLS_BUTTON_TOOLTIP,
   VALIDATION_ERROR_TEXTS,
 } from '../../utils/constants';
+import Button from '../Button';
+import Input from '../Input';
+import Options from '../Options';
+import TopBar from '../TopBar';
 
 import styles from './App.module.css';
 
-import { extractUrls } from '../../helpers/extract-urls-from-text';
-import { useModEnterKeyPress } from '../../hooks/useModEnterKeyPress';
-import { usePaste } from '../../hooks/usePaste';
-import { parseTabUrls } from '../../helpers/parse-tab-urls';
-
 export const App = () => {
-  const [urls, setUrls] = React.useState<string>(
+  const [urls, setUrls] = useState<string>(
     localStorage.getItem(LOCAL_STORAGE_URLS_KEY) || ''
   );
 
-  const [lazyLoad, setLazyLoad] = React.useState<boolean>(
+  const [lazyLoad, setLazyLoad] = useState<boolean>(
     localStorage.getItem(LOCAL_STORAGE_SWITCH_KEY) === 'on'
   );
 
-  const [pasteHtml, setPasteHtml] = React.useState<boolean>(
+  const [pasteHtml, setPasteHtml] = useState<boolean>(
     localStorage.getItem(LOCAL_STORAGE_PASTE_HTML_KEY) === 'on'
   );
 
-  const [isButtonDisabled, setIsButtonDisabled] =
-    React.useState<boolean>(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
-  const [errorMessage, setErrorMessage] = React.useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const handlePaste = React.useCallback(
+  const handlePaste = useCallback(
     (e: ClipboardEvent) => {
       e.preventDefault();
 
@@ -62,7 +59,7 @@ export const App = () => {
     [pasteHtml]
   );
 
-  const handlePasteChange = React.useCallback(() => {
+  const handlePasteChange = useCallback(() => {
     setPasteHtml((prev) => !prev);
     localStorage.setItem(
       LOCAL_STORAGE_PASTE_HTML_KEY,
@@ -70,8 +67,8 @@ export const App = () => {
     );
   }, [pasteHtml]);
 
-  const handleInputChange = React.useCallback(
-    (e: { target: { value: React.SetStateAction<string> } }) => {
+  const handleInputChange = useCallback(
+    (e: { target: { value: SetStateAction<string> } }) => {
       const inputValue = String(e.target.value);
 
       setErrorMessage('');
@@ -81,12 +78,12 @@ export const App = () => {
     []
   );
 
-  const handleSwitch = React.useCallback(() => {
+  const handleSwitch = useCallback(() => {
     setLazyLoad((prev) => !prev);
     localStorage.setItem(LOCAL_STORAGE_SWITCH_KEY, !lazyLoad ? 'on' : 'off');
   }, [lazyLoad]);
 
-  const handleUrlExtraction = React.useCallback(() => {
+  const handleUrlExtraction = useCallback(() => {
     const extractedUrls = extractUrls(urls);
 
     setUrls(extractedUrls.text);
@@ -100,7 +97,7 @@ export const App = () => {
     return extractedUrls;
   }, [urls]);
 
-  const handleTabsParsing = React.useCallback(async () => {
+  const handleTabsParsing = useCallback(async () => {
     try {
       const currentTabs = await parseTabUrls();
       setUrls(currentTabs.join('\n'));
@@ -112,7 +109,7 @@ export const App = () => {
   const getUrlsArray = (text: string) =>
     text.split('\n').filter((url) => url.trim() !== '');
 
-  const handleOpenAllUrls = React.useCallback(() => {
+  const handleOpenAllUrls = useCallback(() => {
     const extractedUrls = handleUrlExtraction();
 
     if (!extractedUrls.hasValidUrls) {

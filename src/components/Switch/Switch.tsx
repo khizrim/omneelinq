@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   ActionTooltip,
   Switch as SwitchComponent,

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { TextArea } from '@gravity-ui/uikit';
 
 import { TEXTAREA_PLACEHOLDER } from '../../utils/constants';

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Icon, Link } from '@gravity-ui/uikit';
+
 import { Bug } from '@gravity-ui/icons';
+import { Icon, Link } from '@gravity-ui/uikit';
 
 import Logo from '../Logo';
 
