@@ -11,7 +11,7 @@
     "lint:styles": "stylelint './src/**/*.css'",
     "lint:prettier": "prettier --check './src' './public'",
     "lint:fix": "npm run lint:code -- --fix && npm run lint:styles -- --fix",
-    "typecheck": "tsc --noEmit"
+    "type-check": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
