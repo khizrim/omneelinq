@@ -1,5 +1,6 @@
 export * from './App';
 export * from './Button';
+export * from './CleanupDuplicatesButton';
 export * from './Input';
 export * from './LazyLoadSwitch';
 export * from './Logo';
