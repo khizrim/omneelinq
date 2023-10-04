@@ -1,5 +1,6 @@
 import React from 'react';
 
+import type { ButtonProps as ButtonComponentProps } from '@gravity-ui/uikit';
 import {
   ActionTooltip,
   Button as ButtonComponent,
@@ -12,11 +13,11 @@ type ButtonProps = {
   size?: 's' | 'm' | 'l' | 'xl';
   icon?: SVGIconData;
   disabled?: boolean;
-  text: string;
+  text?: string;
   tooltip?: { [key: string]: string };
   view?: ButtonView;
   onClick: () => void;
-};
+} & ButtonComponentProps;
 
 export const Button = ({
   size = 'l',
@@ -26,6 +27,7 @@ export const Button = ({
   tooltip,
   view,
   onClick,
+  ...props
 }: ButtonProps) => {
   return tooltip ? (
     <ActionTooltip
@@ -40,13 +42,20 @@ export const Button = ({
         disabled={disabled}
         onClick={onClick}
         view={view}
+        {...props}
       >
         {icon && <Icon data={icon} />}
         {text}
       </ButtonComponent>
     </ActionTooltip>
   ) : (
-    <ButtonComponent size={size} disabled={disabled} onClick={onClick}>
+    <ButtonComponent
+      size={size}
+      disabled={disabled}
+      onClick={onClick}
+      view={view}
+      {...props}
+    >
       {icon && <Icon data={icon} />}
       {text}
     </ButtonComponent>

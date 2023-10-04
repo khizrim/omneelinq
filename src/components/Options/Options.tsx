@@ -1,18 +1,31 @@
 import React from 'react';
 
-import { LazyLoadSwitch } from '../LazyLoadSwitch';
-import { PasteHtmlSwitch } from '../PasteHtmlSwitch';
+import {
+  CleanupDuplicatesButton,
+  LazyLoadSwitch,
+  PasteHtmlSwitch,
+} from 'src/components';
 
 import styles from './Options.module.css';
 
-export const Options = (props: {
+type OptionsProps = {
   lazyLoad: boolean;
-  onToggle: () => void;
+  onLazyLoad: () => void;
   pasteHtml: boolean;
-  onToggle1: () => void;
-}) => (
+  onPasteHtml: () => void;
+  onRemoveDuplicates: () => void;
+};
+
+export const Options = ({
+  lazyLoad,
+  onLazyLoad,
+  pasteHtml,
+  onPasteHtml,
+  onRemoveDuplicates,
+}: OptionsProps) => (
   <div className={styles.options}>
-    <LazyLoadSwitch lazyLoad={props.lazyLoad} onToggle={props.onToggle} />
-    <PasteHtmlSwitch pasteHtml={props.pasteHtml} onToggle={props.onToggle1} />
+    <LazyLoadSwitch lazyLoad={lazyLoad} onToggle={onLazyLoad} />
+    <PasteHtmlSwitch pasteHtml={pasteHtml} onToggle={onPasteHtml} />
+    <CleanupDuplicatesButton onClick={onRemoveDuplicates} />
   </div>
 );
