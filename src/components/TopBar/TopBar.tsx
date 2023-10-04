@@ -3,7 +3,7 @@ import React from 'react';
 import { Bug } from '@gravity-ui/icons';
 import { Icon, Link } from '@gravity-ui/uikit';
 
-import Logo from '../Logo';
+import { Logo } from '../Logo';
 
 import styles from './TopBar.module.css';
 

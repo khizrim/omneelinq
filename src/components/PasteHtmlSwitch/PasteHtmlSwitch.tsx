@@ -1,17 +1,16 @@
 import React from 'react';
 
 import { PASTE_HTML_SWITCH_TEXTS } from '../../utils/constants';
-import Switch from '../Switch';
+import { Switch, SwitchProps } from '../Switch';
 
-export type LazyLoadSwitchProps = {
+export type PasteHtmlSwitchProps = {
   pasteHtml: boolean;
-  onToggle: (checked: boolean) => void;
-};
+} & Pick<SwitchProps, 'onToggle'>;
 
 export const PasteHtmlSwitch = ({
   pasteHtml,
   onToggle,
-}: LazyLoadSwitchProps) => {
+}: PasteHtmlSwitchProps) => {
   return (
     <Switch
       label={PASTE_HTML_SWITCH_TEXTS.label}
