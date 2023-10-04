@@ -14,12 +14,12 @@ import { parseTabUrls } from 'src/helpers/parse-tab-urls';
 import { useModEnterKeyPress } from 'src/hooks/useModEnterKeyPress';
 import { usePaste } from 'src/hooks/usePaste';
 import {
-  EXTRACT_BUTTON_TOOLTIP,
+  EXTRACT_BUTTON,
   LOCAL_STORAGE_PASTE_HTML_KEY,
   LOCAL_STORAGE_SWITCH_KEY,
   LOCAL_STORAGE_URLS_KEY,
-  OPEN_ALL_URLS_BUTTON_TOOLTIP,
-  PARSE_TAB_URLS_BUTTON_TOOLTIP,
+  OPEN_ALL_URLS_BUTTON,
+  PARSE_TAB_URLS_BUTTON,
   VALIDATION_ERROR_TEXTS,
 } from 'src/utils/constants';
 
@@ -175,28 +175,28 @@ export const App = () => {
               <Button
                 size={'m'}
                 icon={ArrowDownFromLine}
-                text={'Parse Tabs'}
                 onClick={() => void handleTabsParsing()}
-                tooltip={PARSE_TAB_URLS_BUTTON_TOOLTIP}
+                text={PARSE_TAB_URLS_BUTTON.label}
+                tooltip={PARSE_TAB_URLS_BUTTON.tooltip}
               />
               <div className={styles.cta}>
                 <ClipboardButton text={urls} size={18} />
                 <Button
                   size={'m'}
                   icon={BroomMotion}
-                  text={'URLs Only'}
                   disabled={isButtonDisabled}
                   onClick={handleUrlExtraction}
-                  tooltip={EXTRACT_BUTTON_TOOLTIP}
+                  text={EXTRACT_BUTTON.label}
+                  tooltip={EXTRACT_BUTTON.tooltip}
                 />
                 <Button
                   size={'m'}
                   icon={ArrowUpRightFromSquare}
                   view={'action'}
-                  text={'Open All'}
                   disabled={isButtonDisabled}
                   onClick={handleOpenAllUrls}
-                  tooltip={OPEN_ALL_URLS_BUTTON_TOOLTIP}
+                  text={OPEN_ALL_URLS_BUTTON.label}
+                  tooltip={OPEN_ALL_URLS_BUTTON.tooltip}
                 />
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { PASTE_HTML_SWITCH_TEXTS } from '../../utils/constants';
-import { Switch, SwitchProps } from '../Switch';
+import { Switch, SwitchProps } from 'src/components/Switch';
+import { PASTE_HTML_SWITCH_TEXTS } from 'src/utils/constants';
 
 export type PasteHtmlSwitchProps = {
   pasteHtml: boolean;
