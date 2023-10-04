@@ -1,4 +1,4 @@
-import { URL_REGEX } from '../utils/constants';
+import { URL_REGEX } from 'src/utils/constants';
 
 interface ExtractedUrlsProps {
   hasValidUrls: boolean;
