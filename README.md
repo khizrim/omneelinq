@@ -16,15 +16,35 @@
 
 ## Installation
 
-To install Omneelinq, follow these steps:
+You can install Omneelinq using one of the following methods:
 
-1. **Download from the Chrome Web Store:** Visit the [Chrome Web Store page](https://chromewebstore.google.com/detail/omneelinq-multiple-url-op/dhagnbnofnklmhfdggckcpmhafmblajf) for Omneelinq and click the "Add to Chrome" button.
+### Option 1: Download from the Chrome Web Store
 
-2. **Manual Installation:**
-    - Clone this repository or download the source code.
-    - Open your Chrome browser and go to `chrome://extensions/`.
-    - Enable "Developer mode" at the top right.
-    - Click "Load unpacked" and select the folder where you cloned or downloaded the source code.
+Visit the [Chrome Web Store page](https://chromewebstore.google.com/detail/omneelinq-multiple-url-op/dhagnbnofnklmhfdggckcpmhafmblajf) for Omneelinq and simply click the "Add to Chrome" button.
+
+### Option 2: Manual Installation
+
+1. Clone this repository or download the source code.
+
+2. Install project dependencies using `pnpm` by running the following command:
+
+   ```bash
+   pnpm install
+
+3. Build the extension using Webpack with the following command:
+
+   ```bash
+   pnpm run build
+ 
+4. Open your Chrome browser and navigate to chrome://extensions/.
+
+5. Enable "Developer mode" in the top right corner of the page.
+
+6. Click the "Load unpacked" button.
+
+7. Select the `/build` folder that was generated during the build process.
+
+Your Omneelinq extension should now be installed and ready for use in your Chrome browser.
 
 ## Getting Started
 
@@ -38,7 +58,7 @@ After installation, you can get started with Omneelinq:
 
 Omneelinq simplifies the following tasks:
 
-- **Effortless Link Opening:** Easily open multiple links in new tabs by copying and pasting a list into Omneelinq. It swiftly opens each link in a new tab with a single click.
+- **Link Opening:** Easily open multiple links in new tabs by copying and pasting a list into Omneelinq. It swiftly opens each link in a new tab with a single click.
 
 - **URL Extraction from Text/HTML:** Paste a block of text or HTML containing links, and Omneelinq will efficiently extract and open the links in new tabs, making it a breeze to access embedded URLs within content.
 
