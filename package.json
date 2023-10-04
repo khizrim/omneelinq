@@ -16,10 +16,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
   "devDependencies": {
     "@babel/core": "^7.23.0",
     "@babel/preset-env": "^7.22.20",
@@ -41,7 +37,9 @@
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.28.1",
     "html-webpack-plugin": "^5.5.3",
+    "i18next": "^23.5.1",
     "prettier": "^3.0.3",
+    "react-i18next": "^13.2.2",
     "semantic-release": "^22.0.5",
     "semantic-release-chrome": "^3.2.0",
     "style-loader": "^3.3.3",
@@ -56,5 +54,106 @@
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
+  },
+  "peerDependencies": {
+    "i18next": "^23.5.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^13.2.2"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "singleQuote": true
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:import/recommended",
+      "plugin:import/typescript",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      "prettier"
+    ],
+    "plugins": [
+      "@typescript-eslint",
+      "import"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "settings": {
+      "import/resolver": {
+        "typescript": true
+      }
+    },
+    "root": true,
+    "ignorePatterns": [
+      "node_modules/",
+      "build/",
+      "webpack.config.js"
+    ],
+    "rules": {
+      "import/order": [
+        "error",
+        {
+          "groups": [
+            "builtin",
+            "external",
+            "internal",
+            [
+              "sibling",
+              "parent"
+            ],
+            "index"
+          ],
+          "alphabetize": {
+            "order": "asc",
+            "orderImportKind": "asc"
+          },
+          "warnOnUnassignedImports": true,
+          "newlines-between": "always",
+          "pathGroups": [
+            {
+              "pattern": "react",
+              "group": "builtin",
+              "position": "before"
+            },
+            {
+              "pattern": "./**/*.css",
+              "group": "index",
+              "position": "after"
+            },
+            {
+              "pattern": "src/components**",
+              "group": "internal",
+              "position": "before"
+            }
+          ],
+          "pathGroupsExcludedImportTypes": [
+            "react"
+          ]
+        }
+      ],
+      "no-multiple-empty-lines": 1
+    }
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-clean-order",
+      "stylelint-config-prettier"
+    ],
+    "plugins": [
+      "stylelint-order"
+    ],
+    "rules": {
+      "no-empty-source": null,
+      "declaration-empty-line-before": null,
+      "no-missing-end-of-source-newline": null,
+      "selector-class-pattern": null,
+      "keyframes-name-pattern": null
+    }
   }
 }
