@@ -1,4 +1,5 @@
-import React, { SetStateAction, useCallback, useState } from 'react';
+import type { SetStateAction } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import {
   ArrowDownFromLine,
@@ -16,6 +17,7 @@ import { usePaste } from 'src/hooks/usePaste';
 import {
   EXTRACT_BUTTON,
   LOCAL_STORAGE_PASTE_HTML_KEY,
+  LOCAL_STORAGE_SORT_KEY,
   LOCAL_STORAGE_SWITCH_KEY,
   LOCAL_STORAGE_URLS_KEY,
   OPEN_ALL_URLS_BUTTON,
@@ -38,20 +40,57 @@ export const App = () => {
     localStorage.getItem(LOCAL_STORAGE_PASTE_HTML_KEY) === 'on'
   );
 
+  const [isEmptyList, setIsEmptyList] = useState<boolean>(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
-
   const [errorMessage, setErrorMessage] = useState<string>('');
+
+  useEffect(() => {
+    if (urls === '') {
+      setIsEmptyList(urls === '');
+      localStorage.removeItem(LOCAL_STORAGE_SORT_KEY);
+      setErrorMessage('');
+    }
+  }, [urls]);
 
   const handlePaste = useCallback(
     (e: ClipboardEvent) => {
       e.preventDefault();
 
+      const textarea = e.target as HTMLTextAreaElement;
+      const start = textarea.selectionStart || 0;
+      const end = textarea.selectionEnd || 0;
+      const textAreaValue = textarea.value;
+
       if (pasteHtml) {
         const html = e.clipboardData?.getData('text/html') || '';
-        setUrls((prev) => prev + html);
+        const newValue =
+          textAreaValue.substring(0, start) +
+          html +
+          textAreaValue.substring(end);
+        setUrls(newValue);
+
+        textarea.selectionStart = start + html.length;
+        textarea.selectionEnd = start + html.length;
+        localStorage.setItem(LOCAL_STORAGE_URLS_KEY, newValue);
+
+        if (newValue) {
+          setIsEmptyList(false);
+        }
       } else {
         const plain = e.clipboardData?.getData('text/plain') || '';
-        setUrls((prev) => prev + plain);
+        const newValue =
+          textAreaValue.substring(0, start) +
+          plain +
+          textAreaValue.substring(end);
+        setUrls(newValue);
+
+        textarea.selectionStart = start + plain.length;
+        textarea.selectionEnd = start + plain.length;
+        localStorage.setItem(LOCAL_STORAGE_URLS_KEY, newValue);
+
+        if (newValue) {
+          setIsEmptyList(false);
+        }
       }
     },
     [pasteHtml]
@@ -69,11 +108,18 @@ export const App = () => {
     (e: { target: { value: SetStateAction<string> } }) => {
       const inputValue = String(e.target.value);
 
-      setErrorMessage('');
-      setUrls(inputValue);
-      localStorage.setItem(LOCAL_STORAGE_URLS_KEY, inputValue);
+      if (inputValue) {
+        setErrorMessage('');
+        setUrls(inputValue);
+        localStorage.setItem(LOCAL_STORAGE_URLS_KEY, inputValue);
+      } else {
+        setUrls('');
+        setIsEmptyList(true);
+        localStorage.removeItem(LOCAL_STORAGE_URLS_KEY);
+        localStorage.removeItem(LOCAL_STORAGE_SORT_KEY);
+      }
     },
-    []
+    [setUrls, setErrorMessage]
   );
 
   const handleSwitch = useCallback(() => {
@@ -109,6 +155,7 @@ export const App = () => {
 
     if (!extractedUrls.hasValidUrls) {
       setErrorMessage(VALIDATION_ERROR_TEXTS.EMPTY);
+      setIsEmptyList(true);
     } else {
       const urlsArray = getUrlsArray(extractedUrls.text);
 
@@ -116,15 +163,57 @@ export const App = () => {
         setIsButtonDisabled(false);
         setErrorMessage(VALIDATION_ERROR_TEXTS.INVALID);
       } else {
-        const uniqueUrls = Array.from(new Set(urlsArray));
+        const uniqueUrls = new Set();
 
-        setUrls(uniqueUrls.join('\n'));
-        localStorage.setItem(LOCAL_STORAGE_URLS_KEY, uniqueUrls.join('\n'));
+        const normalizeUrl = (url: string) => url.replace(/\/$/, '');
+
+        urlsArray.forEach((url) => {
+          const normalizedUrl = normalizeUrl(url);
+          uniqueUrls.add(normalizedUrl);
+        });
+
+        const uniqueUrlsArray = Array.from(uniqueUrls);
+
+        setUrls(uniqueUrlsArray.join('\n'));
+        localStorage.setItem(
+          LOCAL_STORAGE_URLS_KEY,
+          uniqueUrlsArray.join('\n')
+        );
 
         setErrorMessage('');
       }
     }
   }, [handleUrlExtraction, urls]);
+
+  const handleSort = useCallback(
+    (sortDirection: 'asc' | 'desc') => {
+      const extractedUrls = handleUrlExtraction();
+
+      if (!extractedUrls.hasValidUrls) {
+        setErrorMessage(VALIDATION_ERROR_TEXTS.EMPTY);
+        setIsEmptyList(true);
+      } else {
+        const urlsArray = getUrlsArray(extractedUrls.text);
+
+        if (!urlsArray.length) {
+          setIsButtonDisabled(false);
+          setErrorMessage(VALIDATION_ERROR_TEXTS.INVALID);
+        } else {
+          const sortedUrls =
+            sortDirection === 'asc'
+              ? urlsArray.sort()
+              : urlsArray.sort().reverse();
+
+          setUrls(sortedUrls.join('\n'));
+          localStorage.setItem(LOCAL_STORAGE_URLS_KEY, sortedUrls.join('\n'));
+          localStorage.setItem(LOCAL_STORAGE_SORT_KEY, sortDirection);
+
+          setErrorMessage('');
+        }
+      }
+    },
+    [urls]
+  );
 
   const getUrlsArray = (text: string) =>
     text.split('\n').filter((url) => url.trim() !== '');
@@ -159,11 +248,13 @@ export const App = () => {
         <div className={styles.container}>
           <TopBar />
           <Options
+            isEmptyList={isEmptyList}
             lazyLoad={lazyLoad}
             pasteHtml={pasteHtml}
             onLazyLoad={handleSwitch}
             onPasteHtml={handlePasteChange}
             onRemoveDuplicates={handleRemoveDuplicates}
+            onSort={handleSort}
           />
           <section className={styles.form}>
             <Input

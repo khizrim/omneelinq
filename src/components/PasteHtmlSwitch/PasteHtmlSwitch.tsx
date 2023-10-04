@@ -1,22 +1,24 @@
 import React from 'react';
 
-import { Switch, SwitchProps } from 'src/components/Switch';
+import type { SwitchProps } from 'src/components/Switch';
+import { Switch } from 'src/components/Switch';
 import { PASTE_HTML_SWITCH_TEXTS } from 'src/utils/constants';
 
 export type PasteHtmlSwitchProps = {
   pasteHtml: boolean;
-} & Pick<SwitchProps, 'onToggle'>;
+  onPasteHtml: SwitchProps['onToggle'];
+};
 
 export const PasteHtmlSwitch = ({
   pasteHtml,
-  onToggle,
+  onPasteHtml,
 }: PasteHtmlSwitchProps) => {
   return (
     <Switch
       label={PASTE_HTML_SWITCH_TEXTS.label}
       popover={PASTE_HTML_SWITCH_TEXTS.helpPopover}
       state={pasteHtml}
-      onToggle={onToggle}
+      onToggle={onPasteHtml}
     />
   );
 };

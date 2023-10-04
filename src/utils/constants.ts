@@ -1,32 +1,40 @@
+import type { Button, LocalStorageKey, Switch } from './types';
+
 export const EXTENSION_NAME = 'Omneelinq';
 
 export const MAINTAINER_EMAIL = 'khizrim@khizrim.ru';
 
-export const LOCAL_STORAGE_URLS_KEY = 'urls';
+export const LOCAL_STORAGE_URLS_KEY: LocalStorageKey = 'urls';
 
-export const LOCAL_STORAGE_SWITCH_KEY = 'switch-state';
+export const LOCAL_STORAGE_SORT_KEY: LocalStorageKey = 'sort';
 
-export const LOCAL_STORAGE_PASTE_HTML_KEY = 'paste-html';
+export const LOCAL_STORAGE_SWITCH_KEY: LocalStorageKey = 'switch-state';
+
+export const LOCAL_STORAGE_PASTE_HTML_KEY: LocalStorageKey = 'paste-html';
 
 export const URL_REGEX =
   /\b(?:https?|ftp):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]*[-A-Za-z0-9+&@#/%=~_|]/gi;
 
-export const LAZYLOAD_SWITCH_TEXTS = {
+export const LAZYLOAD_SWITCH_TEXTS: Switch = {
   label: 'Open One-by-One',
   helpPopover:
     'A new tab will not be created until the current tab is fully loaded.',
 };
 
-export const PASTE_HTML_SWITCH_TEXTS = {
+export const PASTE_HTML_SWITCH_TEXTS: Switch = {
   label: 'Paste as HTML',
   helpPopover:
     'Allows you to paste text as HTML, including all links and tags. You can easily extract all the links afterward.',
 };
 
-export const TEXTAREA_PLACEHOLDER =
+export const TEXTAREA_PLACEHOLDER: string =
   'Enter a list of links or text containing links';
 
-export const PARSE_TAB_URLS_BUTTON = {
+export const REMOVE_DUPLICATES_BUTTON: Button = {
+  label: 'Remove Duplicates',
+};
+
+export const PARSE_TAB_URLS_BUTTON: Button = {
   label: 'Parse Tabs',
   tooltip: {
     title: 'Get All Tab Links',
@@ -34,7 +42,7 @@ export const PARSE_TAB_URLS_BUTTON = {
   },
 };
 
-export const OPEN_ALL_URLS_BUTTON = {
+export const OPEN_ALL_URLS_BUTTON: Button = {
   label: 'Open All',
   tooltip: {
     title: 'Open All Links',
@@ -43,7 +51,7 @@ export const OPEN_ALL_URLS_BUTTON = {
   },
 };
 
-export const EXTRACT_BUTTON = {
+export const EXTRACT_BUTTON: Button = {
   label: 'Links Only',
   tooltip: {
     title: 'Extract Links from Text',
