@@ -40,7 +40,7 @@ jobs:
         run: |
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
-          git add manifest.json package.json
+          git add public/manifest.json package.json
           git commit -m "chore: Update version to ${{ github.ref_name }}"
           git push
 
