@@ -7,10 +7,12 @@ import {
 } from '@gravity-ui/icons';
 import { ClipboardButton, ThemeProvider } from '@gravity-ui/uikit';
 
-import { extractUrls } from '../../helpers/extract-urls-from-text';
-import { parseTabUrls } from '../../helpers/parse-tab-urls';
-import { useModEnterKeyPress } from '../../hooks/useModEnterKeyPress';
-import { usePaste } from '../../hooks/usePaste';
+import { Button, Input, Options, TopBar } from 'src/components';
+
+import { extractUrls } from 'src/helpers/extract-urls-from-text';
+import { parseTabUrls } from 'src/helpers/parse-tab-urls';
+import { useModEnterKeyPress } from 'src/hooks/useModEnterKeyPress';
+import { usePaste } from 'src/hooks/usePaste';
 import {
   EXTRACT_BUTTON_TOOLTIP,
   LOCAL_STORAGE_PASTE_HTML_KEY,
@@ -19,11 +21,7 @@ import {
   OPEN_ALL_URLS_BUTTON_TOOLTIP,
   PARSE_TAB_URLS_BUTTON_TOOLTIP,
   VALIDATION_ERROR_TEXTS,
-} from '../../utils/constants';
-import Button from '../Button';
-import Input from '../Input';
-import Options from '../Options';
-import TopBar from '../TopBar';
+} from 'src/utils/constants';
 
 import styles from './App.module.css';
 

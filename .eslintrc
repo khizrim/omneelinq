@@ -46,6 +46,11 @@
             "pattern": "./**/*.css",
             "group": "index",
             "position": "after"
+          },
+          {
+            "pattern": "src/components**",
+            "group": "internal",
+            "position": "before"
           }
         ],
         "pathGroupsExcludedImportTypes": ["react"]

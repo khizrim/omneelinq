@@ -1,7 +1,7 @@
 import React from 'react';
 
-import LazyLoadSwitch from '../LazyLoadSwitch';
-import PasteHtmlSwitch from '../PasteHtmlSwitch';
+import { LazyLoadSwitch } from '../LazyLoadSwitch';
+import { PasteHtmlSwitch } from '../PasteHtmlSwitch';
 
 import styles from './Options.module.css';
 

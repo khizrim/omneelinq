@@ -8,19 +8,14 @@ import {
 
 import styles from './Switch.module.css';
 
-export type LazyLoadSwitchProps = {
+export type SwitchProps = {
   label?: string;
   popover?: string;
   state: boolean;
   onToggle: (checked: boolean) => void;
 };
 
-export const Switch = ({
-  label,
-  popover,
-  state,
-  onToggle,
-}: LazyLoadSwitchProps) => {
+export const Switch = ({ label, popover, state, onToggle }: SwitchProps) => {
   const handleToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
     onToggle(event.target.checked);
   };

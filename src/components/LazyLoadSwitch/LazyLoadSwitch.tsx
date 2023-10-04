@@ -1,12 +1,11 @@
 import React from 'react';
 
 import { LAZYLOAD_SWITCH_TEXTS } from '../../utils/constants';
-import Switch from '../Switch';
+import { Switch, SwitchProps } from '../Switch';
 
 export type LazyLoadSwitchProps = {
   lazyLoad: boolean;
-  onToggle: (checked: boolean) => void;
-};
+} & Pick<SwitchProps, 'onToggle'>;
 
 export const LazyLoadSwitch = ({ lazyLoad, onToggle }: LazyLoadSwitchProps) => {
   return (
