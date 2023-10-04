@@ -1,10 +1,12 @@
 import React from 'react';
 
-import type { ButtonProps as ButtonComponentProps } from '@gravity-ui/uikit';
+import type {
+  ButtonProps as ButtonComponentProps,
+  ButtonView,
+} from '@gravity-ui/uikit';
 import {
   ActionTooltip,
   Button as ButtonComponent,
-  ButtonView,
   Icon,
 } from '@gravity-ui/uikit';
 import type { SVGIconData } from '@gravity-ui/uikit/build/cjs/components/Icon/types';
