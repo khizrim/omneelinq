@@ -27,14 +27,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build Extension
-        run: pnpm run build
-
       - name: Update Version Numbers
         run: |
           # Update manifest.json version
-          jq --arg new_version "${{ github.ref_name }}" '.version = $new_version' manifest.json > manifest.json.tmp
-          mv manifest.json.tmp manifest.json
+          jq --arg new_version "${{ github.ref_name }}" '.version = $new_version' public/manifest.json > public/manifest.json.tmp
+          mv public/manifest.json.tmp public/manifest.json
 
           # Update package.json version
           npm version --no-git-tag-version "${{ github.ref_name }}"
@@ -46,6 +43,9 @@ jobs:
           git add manifest.json package.json
           git commit -m "chore: Update version to ${{ github.ref_name }}"
           git push
+
+      - name: Build Extension
+        run: pnpm run build
 
       - name: Zip Extension
         run: zip -r extension.zip ./build
