@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { LAZYLOAD_SWITCH_TEXTS } from '../../utils/constants';
-import { Switch, SwitchProps } from '../Switch';
+import { Switch, SwitchProps } from 'src/components/Switch';
+import { LAZYLOAD_SWITCH_TEXTS } from 'src/utils/constants';
 
 export type LazyLoadSwitchProps = {
   lazyLoad: boolean;

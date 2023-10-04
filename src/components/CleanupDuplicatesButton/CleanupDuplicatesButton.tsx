@@ -2,7 +2,7 @@ import React from 'react';
 
 import { SquareMinus } from '@gravity-ui/icons';
 
-import { Button } from '../Button';
+import { Button } from 'src/components/Button';
 
 type RemoveDuplicatesButtonsProps = {
   onClick: () => void;

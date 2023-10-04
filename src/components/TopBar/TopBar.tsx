@@ -3,7 +3,8 @@ import React from 'react';
 import { Bug } from '@gravity-ui/icons';
 import { Icon, Link } from '@gravity-ui/uikit';
 
-import { Logo } from '../Logo';
+import { Logo } from 'src/components/Logo';
+import { BUG_REPORT_TEXTS, MAINTAINER_EMAIL } from 'src/utils/constants';
 
 import styles from './TopBar.module.css';
 
@@ -13,10 +14,8 @@ export const TopBar = () => {
       <Logo />
       <Link
         className={styles.report}
-        href={
-          'mailto:khizrim@khizrim.ru?subject=A new bug discovered in Omneelinq!'
-        }
-        aria-label={'Report a Bug'}
+        href={`mailto:${MAINTAINER_EMAIL}?subject=${BUG_REPORT_TEXTS.subject}`}
+        aria-label={BUG_REPORT_TEXTS.label}
       >
         <Icon data={Bug} />
       </Link>

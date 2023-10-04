@@ -2,7 +2,7 @@ import React from 'react';
 
 import { TextArea } from '@gravity-ui/uikit';
 
-import { TEXTAREA_PLACEHOLDER } from '../../utils/constants';
+import { TEXTAREA_PLACEHOLDER } from 'src/utils/constants';
 
 import styles from './Input.module.css';
 
