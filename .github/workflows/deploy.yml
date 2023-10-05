@@ -41,6 +41,10 @@ jobs:
           # Update package.json version
           npm version --no-git-tag-version "${{ github.ref_name }}"
 
+      - name: Format manifest.json with Prettier
+        run: pnpm prettier --write "public/manifest.json"
+
+    
       - name: Commit and Push Version Changes
         run: |
           git config user.name "${{ github.actor }}"
