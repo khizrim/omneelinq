@@ -1,0 +1,94 @@
+{
+  "extName": {
+    "message": "Omneelinq",
+    "description": "Название расширения"
+  },
+  "extDescription": {
+    "message": "Извлекает ссылки из текста и открывает их в новых вкладках",
+    "description": "Описание расширения"
+  },
+  "extDefTitle": {
+    "message": "Omneelinq",
+    "description": "Заголовок всплывающего окна"
+  },
+  "labelLazyloadSwitch": {
+    "message": "По очереди",
+    "description": "Метка для переключателя 'Открывать по одной'"
+  },
+  "helpPopoverLazyloadSwitch": {
+    "message": "Новая вкладка не будет создана, пока текущая вкладка полностью загрузится.",
+    "description": "Текст всплывающей подсказки для переключателя 'Открывать по одной'"
+  },
+  "labelPasteHtmlSwitch": {
+    "message": "Вставить как HTML",
+    "description": "Метка для переключателя 'Вставить как HTML'"
+  },
+  "helpPopoverPasteHtmlSwitch": {
+    "message": "Позволяет вставить текст как HTML, включая все ссылки и теги. Вы легко можете извлечь все ссылки впоследствии.",
+    "description": "Текст всплывающей подсказки для переключателя 'Вставить как HTML'"
+  },
+  "placeholderTextarea": {
+    "message": "Введите список ссылок или текст, содержащий ссылки",
+    "description": "Текст заполнителя для текстовой области"
+  },
+  "labelRemoveDuplicatesButton": {
+    "message": "Удалить дубликаты",
+    "description": "Метка для кнопки 'Удалить дубликаты'"
+  },
+  "labelParseTabsButton": {
+    "message": "Открытые вкладки",
+    "description": "Метка для кнопки 'Открытые вкладки'"
+  },
+  "tooltipTitleParseTabsButton": {
+    "message": "Получить все ссылки из вкладок",
+    "description": "Заголовок подсказки для кнопки 'Анализ вкладок'"
+  },
+  "tooltipDescriptionParseTabsButton": {
+    "message": "Анализирует ссылки со всех открытых вкладок в текущем окне",
+    "description": "Описание подсказки для кнопки 'Анализ вкладок'"
+  },
+  "labelOpenAllButton": {
+    "message": "Открыть все",
+    "description": "Метка для кнопки 'Открыть все'"
+  },
+  "tooltipTitleOpenAllButton": {
+    "message": "Открыть все ссылки",
+    "description": "Заголовок подсказки для кнопки 'Открыть все'"
+  },
+  "tooltipDescriptionOpenAllButton": {
+    "message": "Открывает все ссылки в новых вкладках",
+    "description": "Описание подсказки для кнопки 'Открыть все'"
+  },
+  "labelLinksOnlyButton": {
+    "message": "Извлечь сслыки",
+    "description": "Метка для кнопки 'Извлечь сслыки'"
+  },
+  "tooltipTitleLinksOnlyButton": {
+    "message": "Извлечение ссылок из текста",
+    "description": "Заголовок подсказки для кнопки 'Только ссылки'"
+  },
+  "tooltipDescriptionLinksOnlyButton": {
+    "message": "Находит все ссылки в тексте, извлекает их и создает список.",
+    "description": "Описание подсказки для кнопки 'Только ссылки'"
+  },
+  "errorNoContentToExtract": {
+    "message": "Нет контента для извлечения",
+    "description": "Сообщение об ошибке при отсутствии контента для извлечения"
+  },
+  "errorEmptyInput": {
+    "message": "Пожалуйста, вставьте список ссылок или текст, содержащий ссылки",
+    "description": "Сообщение об ошибке для пустого ввода"
+  },
+  "errorNoValidLinksFound": {
+    "message": "В тексте не найдено действительных ссылок",
+    "description": "Сообщение об ошибке при отсутствии действительных ссылок"
+  },
+  "subjectBugReport": {
+    "message": "Новая ошибка обнаружена в Omneelinq!",
+    "description": "Тема для сообщения об ошибке"
+  },
+  "labelReportBugButton": {
+    "message": "Сообщить об ошибке",
+    "description": "Метка для кнопки 'Сообщить об ошибке'"
+  }
+}

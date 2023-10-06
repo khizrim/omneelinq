@@ -135,7 +135,7 @@ export const App = () => {
     localStorage.setItem(LOCAL_STORAGE_URLS_KEY, extractedUrls.text);
 
     if (!extractedUrls.hasValidUrls) {
-      setErrorMessage(VALIDATION_ERROR_TEXTS.NO_CONTENT);
+      setErrorMessage(VALIDATION_ERROR_TEXTS.noContent);
     }
 
     return extractedUrls;
@@ -154,14 +154,14 @@ export const App = () => {
     const extractedUrls = handleUrlExtraction();
 
     if (!extractedUrls.hasValidUrls) {
-      setErrorMessage(VALIDATION_ERROR_TEXTS.EMPTY);
+      setErrorMessage(VALIDATION_ERROR_TEXTS.empty);
       setIsEmptyList(true);
     } else {
       const urlsArray = getUrlsArray(extractedUrls.text);
 
       if (!urlsArray.length) {
         setIsButtonDisabled(false);
-        setErrorMessage(VALIDATION_ERROR_TEXTS.INVALID);
+        setErrorMessage(VALIDATION_ERROR_TEXTS.invalid);
       } else {
         const uniqueUrls = new Set();
 
@@ -190,14 +190,14 @@ export const App = () => {
       const extractedUrls = handleUrlExtraction();
 
       if (!extractedUrls.hasValidUrls) {
-        setErrorMessage(VALIDATION_ERROR_TEXTS.EMPTY);
+        setErrorMessage(VALIDATION_ERROR_TEXTS.empty);
         setIsEmptyList(true);
       } else {
         const urlsArray = getUrlsArray(extractedUrls.text);
 
         if (!urlsArray.length) {
           setIsButtonDisabled(false);
-          setErrorMessage(VALIDATION_ERROR_TEXTS.INVALID);
+          setErrorMessage(VALIDATION_ERROR_TEXTS.invalid);
         } else {
           const sortedUrls =
             sortDirection === 'asc'
@@ -222,13 +222,13 @@ export const App = () => {
     const extractedUrls = handleUrlExtraction();
 
     if (!extractedUrls.hasValidUrls) {
-      setErrorMessage(VALIDATION_ERROR_TEXTS.EMPTY);
+      setErrorMessage(VALIDATION_ERROR_TEXTS.empty);
     } else {
       const urlsArray = getUrlsArray(extractedUrls.text);
 
       if (!urlsArray.length) {
         setIsButtonDisabled(false);
-        setErrorMessage(VALIDATION_ERROR_TEXTS.INVALID);
+        setErrorMessage(VALIDATION_ERROR_TEXTS.invalid);
       } else {
         void chrome.runtime.sendMessage({
           action: 'openAllUrls',
