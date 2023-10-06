@@ -1,0 +1,94 @@
+{
+  "extName": {
+    "message": "Omneelinq",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Open multiple URLs instantly, extract URLs from text, and more.",
+    "description": "Extension description"
+  },
+  "extDefTitle": {
+    "message": "Link it up!",
+    "description": "Extension default title"
+  },
+  "labelLazyloadSwitch": {
+    "message": "Open One-by-One",
+    "description": "Label for the 'Open One-by-One' switch"
+  },
+  "helpPopoverLazyloadSwitch": {
+    "message": "A new tab will not be created until the current tab is fully loaded.",
+    "description": "Help popover text for the 'Open One-by-One' switch"
+  },
+  "labelPasteHtmlSwitch": {
+    "message": "Paste as HTML",
+    "description": "Label for the 'Paste as HTML' switch"
+  },
+  "helpPopoverPasteHtmlSwitch": {
+    "message": "Allows you to paste text as HTML, including all links and tags. You can easily extract all the links afterward.",
+    "description": "Help popover text for the 'Paste as HTML' switch"
+  },
+  "placeholderTextarea": {
+    "message": "Enter a list of links or text containing links",
+    "description": "Placeholder text for the textarea"
+  },
+  "labelRemoveDuplicatesButton": {
+    "message": "Remove Duplicates",
+    "description": "Label for the 'Remove Duplicates' button"
+  },
+  "labelParseTabsButton": {
+    "message": "Parse Tabs",
+    "description": "Label for the 'Parse Tabs' button"
+  },
+  "tooltipTitleParseTabsButton": {
+    "message": "Get All Tab Links",
+    "description": "Tooltip title for the 'Parse Tabs' button"
+  },
+  "tooltipDescriptionParseTabsButton": {
+    "message": "Parse links from all tabs opened in the current window",
+    "description": "Tooltip description for the 'Parse Tabs' button"
+  },
+  "labelOpenAllButton": {
+    "message": "Open All",
+    "description": "Label for the 'Open All' button"
+  },
+  "tooltipTitleOpenAllButton": {
+    "message": "Open All Links",
+    "description": "Tooltip title for the 'Open All' button"
+  },
+  "tooltipDescriptionOpenAllButton": {
+    "message": "Finds the links and opens them in new tabs",
+    "description": "Tooltip description for the 'Open All' button"
+  },
+  "labelLinksOnlyButton": {
+    "message": "Links Only",
+    "description": "Label for the 'Links Only' button"
+  },
+  "tooltipTitleLinksOnlyButton": {
+    "message": "Extract Links from Text",
+    "description": "Tooltip title for the 'Links Only' button"
+  },
+  "tooltipDescriptionLinksOnlyButton": {
+    "message": "Finds all links within the entered text, extracts them, and creates a list.",
+    "description": "Tooltip description for the 'Links Only' button"
+  },
+  "errorNoContentToExtract": {
+    "message": "No content to extract",
+    "description": "Validation error message for no content to extract"
+  },
+  "errorEmptyInput": {
+    "message": "Please paste a list of links or text containing links",
+    "description": "Validation error message for empty input"
+  },
+  "errorNoValidLinksFound": {
+    "message": "No valid links found in the text",
+    "description": "Validation error message for no valid links found"
+  },
+  "subjectBugReport": {
+    "message": "A new bug discovered in Omneelinq!",
+    "description": "Subject for bug report"
+  },
+  "labelReportBugButton": {
+    "message": "Report a Bug",
+    "description": "Label for the 'Report a Bug' button"
+  }
+}

@@ -12,7 +12,7 @@ export const Logo = () => {
     <div className={styles.container}>
       <img width={24} height={24} src={logo} alt={EXTENSION_NAME} />
       <Text as="h1" variant="header-1" className={styles.title}>
-        Omneelinq
+        {chrome.i18n.getMessage('extName')}
       </Text>
     </div>
   );

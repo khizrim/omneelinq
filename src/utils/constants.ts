@@ -1,6 +1,6 @@
 import type { Button, LocalStorageKey, Switch } from './types';
 
-export const EXTENSION_NAME = 'Omneelinq';
+export const EXTENSION_NAME = chrome.i18n.getMessage('extName');
 
 export const MAINTAINER_EMAIL = 'khizrim@khizrim.ru';
 
@@ -16,57 +16,55 @@ export const URL_REGEX =
   /\b(?:https?|ftp):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]*[-A-Za-z0-9+&@#/%=~_|]/gi;
 
 export const LAZYLOAD_SWITCH_TEXTS: Switch = {
-  label: 'Open One-by-One',
-  helpPopover:
-    'A new tab will not be created until the current tab is fully loaded.',
+  label: chrome.i18n.getMessage('labelLazyloadSwitch'),
+  helpPopover: chrome.i18n.getMessage('helpPopoverLazyloadSwitch'),
 };
 
 export const PASTE_HTML_SWITCH_TEXTS: Switch = {
-  label: 'Paste as HTML',
-  helpPopover:
-    'Allows you to paste text as HTML, including all links and tags. You can easily extract all the links afterward.',
+  label: chrome.i18n.getMessage('labelPasteHtmlSwitch'),
+  helpPopover: chrome.i18n.getMessage('helpPopoverPasteHtmlSwitch'),
 };
 
-export const TEXTAREA_PLACEHOLDER: string =
-  'Enter a list of links or text containing links';
+export const TEXTAREA_PLACEHOLDER = chrome.i18n.getMessage(
+  'placeholderTextarea'
+);
 
 export const REMOVE_DUPLICATES_BUTTON: Button = {
-  label: 'Remove Duplicates',
+  label: chrome.i18n.getMessage('labelRemoveDuplicatesButton'),
 };
 
 export const PARSE_TAB_URLS_BUTTON: Button = {
-  label: 'Parse Tabs',
+  label: chrome.i18n.getMessage('labelParseTabsButton'),
   tooltip: {
-    title: 'Get All Tab Links',
-    description: 'Parse links from all tabs opened in the current window',
+    title: chrome.i18n.getMessage('tooltipTitleParseTabsButton'),
+    description: chrome.i18n.getMessage('tooltipDescriptionParseTabsButton'),
   },
 };
 
 export const OPEN_ALL_URLS_BUTTON: Button = {
-  label: 'Open All',
+  label: chrome.i18n.getMessage('labelOpenAllButton'),
   tooltip: {
-    title: 'Open All Links',
-    description: 'Finds the links and opens them in new tabs',
+    title: chrome.i18n.getMessage('tooltipTitleOpenAllButton'),
+    description: chrome.i18n.getMessage('tooltipDescriptionOpenAllButton'),
     hotkey: 'mod+enter',
   },
 };
 
 export const EXTRACT_BUTTON: Button = {
-  label: 'Links Only',
+  label: chrome.i18n.getMessage('labelLinksOnlyButton'),
   tooltip: {
-    title: 'Extract Links from Text',
-    description:
-      'Finds all links within the entered text, extracts them, and creates a list.',
+    title: chrome.i18n.getMessage('tooltipTitleLinksOnlyButton'),
+    description: chrome.i18n.getMessage('tooltipDescriptionLinksOnlyButton'),
   },
 };
 
 export const VALIDATION_ERROR_TEXTS = {
-  NO_CONTENT: 'No content to extract',
-  EMPTY: 'Please paste a list of links or text containing links',
-  INVALID: 'No valid links found in the text',
+  noContent: chrome.i18n.getMessage('errorNoContentToExtract'),
+  empty: chrome.i18n.getMessage('errorEmptyInput'),
+  invalid: chrome.i18n.getMessage('errorNoValidLinksFound'),
 };
 
 export const BUG_REPORT_TEXTS = {
-  subject: 'A new bug discovered in Omneelinq!',
-  label: 'Report a Bug',
+  subject: chrome.i18n.getMessage('subjectBugReport'),
+  label: chrome.i18n.getMessage('labelReportBugButton'),
 };
