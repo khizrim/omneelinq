@@ -16,6 +16,7 @@ body {
   --g-color-base-selection-hover: rgb(82 130 255 / 10%);
   --g-color-line-brand: rgb(117 155 255);
   --g-color-text-brand: rgb(117 155 255);
+  --g-color-text-brand-heavy: rgb(88 111 173);
   --g-color-text-brand-contrast: rgb(255 255 255);
   --g-color-text-link: rgb(117 155 255);
   --g-color-text-link-hover: rgb(82 130 255);

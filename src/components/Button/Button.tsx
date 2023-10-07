@@ -1,65 +1,38 @@
 import React from 'react';
 
-import type {
-  ButtonProps as ButtonComponentProps,
-  ButtonView,
-} from '@gravity-ui/uikit';
+import type { ButtonProps as ButtonComponentProps } from '@gravity-ui/uikit';
 import {
   ActionTooltip,
   Button as ButtonComponent,
   Icon,
 } from '@gravity-ui/uikit';
-import type { SVGIconData } from '@gravity-ui/uikit/build/cjs/components/Icon/types';
+import type { SVGIconData } from '@gravity-ui/uikit/build/esm/components/Icon/types';
 
-type ButtonProps = {
-  size?: 's' | 'm' | 'l' | 'xl';
+import type { TooltipTextsProps } from 'src/utils/types';
+
+export type ButtonProps = {
   icon?: SVGIconData;
-  disabled?: boolean;
-  text?: string;
-  tooltip?: { [key: string]: string };
-  view?: ButtonView;
-  onClick: () => void;
+  tooltip?: TooltipTextsProps;
 } & ButtonComponentProps;
 
-export const Button = ({
-  size = 'l',
-  icon,
-  disabled = false,
-  text,
-  tooltip,
-  view,
-  onClick,
-  ...props
-}: ButtonProps) => {
+export const Button = ({ icon, children, tooltip, ...props }: ButtonProps) => {
+  const button = (
+    <ButtonComponent {...props}>
+      {icon && <Icon data={icon} />}
+      {children}
+    </ButtonComponent>
+  );
+
   return tooltip ? (
     <ActionTooltip
       title={tooltip.title}
-      openDelay={1000}
       description={tooltip.description}
       hotkey={tooltip.hotkey}
-      placement={'top-end'}
+      openDelay={1000}
     >
-      <ButtonComponent
-        size={size}
-        disabled={disabled}
-        onClick={onClick}
-        view={view}
-        {...props}
-      >
-        {icon && <Icon data={icon} />}
-        {text}
-      </ButtonComponent>
+      {button}
     </ActionTooltip>
   ) : (
-    <ButtonComponent
-      size={size}
-      disabled={disabled}
-      onClick={onClick}
-      view={view}
-      {...props}
-    >
-      {icon && <Icon data={icon} />}
-      {text}
-    </ButtonComponent>
+    button
   );
 };

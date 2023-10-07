@@ -1,299 +1,218 @@
 import type { SetStateAction } from 'react';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
-import {
-  ArrowDownFromLine,
-  ArrowUpRightFromSquare,
-  BroomMotion,
-} from '@gravity-ui/icons';
-import { ClipboardButton, ThemeProvider } from '@gravity-ui/uikit';
+import { Flex, spacing, ThemeProvider } from '@gravity-ui/uikit';
 
-import { Button, Input, Options, TopBar } from 'src/components';
+import { Form, TopBar } from 'src/components';
 
 import { extractUrls } from 'src/helpers/extract-urls-from-text';
+import { getLocalstorageItem } from 'src/helpers/get-localstorage-item';
+import { getUrlsArray } from 'src/helpers/get-urls-array';
 import { parseTabUrls } from 'src/helpers/parse-tab-urls';
+import { removeLocalstorageItem } from 'src/helpers/remove-localstorage-item';
+import { setLocalstorageItem } from 'src/helpers/set-localstorage-item';
+import { useErrorMessage } from 'src/hooks/useErrorMessage';
 import { useModEnterKeyPress } from 'src/hooks/useModEnterKeyPress';
 import { usePaste } from 'src/hooks/usePaste';
+import { useUrls } from 'src/hooks/useUrls';
 import {
-  EXTRACT_BUTTON,
+  LOCAL_STORAGE_LAZY_LOAD_KEY,
   LOCAL_STORAGE_PASTE_HTML_KEY,
   LOCAL_STORAGE_SORT_KEY,
-  LOCAL_STORAGE_SWITCH_KEY,
   LOCAL_STORAGE_URLS_KEY,
-  OPEN_ALL_URLS_BUTTON,
-  PARSE_TAB_URLS_BUTTON,
   VALIDATION_ERROR_TEXTS,
 } from 'src/utils/constants';
 
-import styles from './App.module.css';
+import { getUniqueUrlsArray } from '../../helpers/get-unique-urls-array';
+import { sortUrls } from '../../helpers/sort-urls';
 
 export const App = () => {
-  const [urls, setUrls] = useState<string>(
-    localStorage.getItem(LOCAL_STORAGE_URLS_KEY) || ''
+  const { urls, setUrls, isEmptyList, setIsEmptyList } = useUrls();
+  const { errorMessage, setErrorMessage, resetErrorMessage } =
+    useErrorMessage();
+
+  const isPasteHtml =
+    getLocalstorageItem(LOCAL_STORAGE_PASTE_HTML_KEY) === 'on';
+
+  const extractedUrls = useMemo(() => extractUrls(urls), [urls]);
+  const urlsArray = useMemo(
+    () => getUrlsArray(extractedUrls.text),
+    [extractedUrls]
   );
 
-  const [lazyLoad, setLazyLoad] = useState<boolean>(
-    localStorage.getItem(LOCAL_STORAGE_SWITCH_KEY) === 'on'
-  );
+  const handleErrors = (message: string) => {
+    setErrorMessage(message);
+    setIsEmptyList(true);
+  };
 
-  const [pasteHtml, setPasteHtml] = useState<boolean>(
-    localStorage.getItem(LOCAL_STORAGE_PASTE_HTML_KEY) === 'on'
-  );
+  const handlePaste = (e: ClipboardEvent, pasteHtml: boolean) => {
+    const textarea = e.target as HTMLTextAreaElement;
 
-  const [isEmptyList, setIsEmptyList] = useState<boolean>(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+    const [start, end] = [
+      textarea.selectionStart || 0,
+      textarea.selectionEnd || 0,
+    ];
+    const textAreaValue = textarea.value;
 
-  useEffect(() => {
-    if (urls === '') {
-      setIsEmptyList(urls === '');
-      localStorage.removeItem(LOCAL_STORAGE_SORT_KEY);
-      setErrorMessage('');
-    }
-  }, [urls]);
+    const clipboardDataKey = pasteHtml ? 'text/html' : 'text/plain';
+    const clipboardData = e.clipboardData?.getData(clipboardDataKey) || '';
 
-  const handlePaste = useCallback(
-    (e: ClipboardEvent) => {
-      e.preventDefault();
+    const updatedValue =
+      textAreaValue.substring(0, start) +
+      clipboardData +
+      textAreaValue.substring(end);
 
-      const textarea = e.target as HTMLTextAreaElement;
-      const start = textarea.selectionStart || 0;
-      const end = textarea.selectionEnd || 0;
-      const textAreaValue = textarea.value;
+    setUrls(updatedValue);
+    setLocalstorageItem(LOCAL_STORAGE_URLS_KEY, updatedValue);
 
-      if (pasteHtml) {
-        const html = e.clipboardData?.getData('text/html') || '';
-        const newValue =
-          textAreaValue.substring(0, start) +
-          html +
-          textAreaValue.substring(end);
-        setUrls(newValue);
+    textarea.selectionStart = start + clipboardData.length;
+    textarea.selectionEnd = start + clipboardData.length;
 
-        textarea.selectionStart = start + html.length;
-        textarea.selectionEnd = start + html.length;
-        localStorage.setItem(LOCAL_STORAGE_URLS_KEY, newValue);
-
-        if (newValue) {
-          setIsEmptyList(false);
-        }
-      } else {
-        const plain = e.clipboardData?.getData('text/plain') || '';
-        const newValue =
-          textAreaValue.substring(0, start) +
-          plain +
-          textAreaValue.substring(end);
-        setUrls(newValue);
-
-        textarea.selectionStart = start + plain.length;
-        textarea.selectionEnd = start + plain.length;
-        localStorage.setItem(LOCAL_STORAGE_URLS_KEY, newValue);
-
-        if (newValue) {
-          setIsEmptyList(false);
-        }
-      }
-    },
-    [pasteHtml]
-  );
-
-  const handlePasteChange = useCallback(() => {
-    setPasteHtml((prev) => !prev);
-    localStorage.setItem(
-      LOCAL_STORAGE_PASTE_HTML_KEY,
-      !pasteHtml ? 'on' : 'off'
-    );
-  }, [pasteHtml]);
+    setIsEmptyList(!updatedValue);
+  };
 
   const handleInputChange = useCallback(
     (e: { target: { value: SetStateAction<string> } }) => {
       const inputValue = String(e.target.value);
 
       if (inputValue) {
-        setErrorMessage('');
+        resetErrorMessage();
         setUrls(inputValue);
-        localStorage.setItem(LOCAL_STORAGE_URLS_KEY, inputValue);
+        setIsEmptyList(false);
+        setLocalstorageItem(LOCAL_STORAGE_URLS_KEY, inputValue);
       } else {
         setUrls('');
         setIsEmptyList(true);
-        localStorage.removeItem(LOCAL_STORAGE_URLS_KEY);
-        localStorage.removeItem(LOCAL_STORAGE_SORT_KEY);
+        removeLocalstorageItem(LOCAL_STORAGE_URLS_KEY);
+        removeLocalstorageItem(LOCAL_STORAGE_SORT_KEY);
+        resetErrorMessage();
       }
     },
-    [setUrls, setErrorMessage]
+    [setUrls, setIsEmptyList, resetErrorMessage]
   );
 
-  const handleSwitch = useCallback(() => {
-    setLazyLoad((prev) => !prev);
-    localStorage.setItem(LOCAL_STORAGE_SWITCH_KEY, !lazyLoad ? 'on' : 'off');
-  }, [lazyLoad]);
-
   const handleUrlExtraction = useCallback(() => {
-    const extractedUrls = extractUrls(urls);
-
     setUrls(extractedUrls.text);
 
     localStorage.setItem(LOCAL_STORAGE_URLS_KEY, extractedUrls.text);
 
     if (!extractedUrls.hasValidUrls) {
-      setErrorMessage(VALIDATION_ERROR_TEXTS.noContent);
+      handleErrors(VALIDATION_ERROR_TEXTS.noContent);
     }
 
     return extractedUrls;
-  }, [urls]);
+  }, [urls, extractedUrls, setUrls, handleErrors]);
 
   const handleTabsParsing = useCallback(async () => {
     try {
       const currentTabs = await parseTabUrls();
-      setUrls(currentTabs.join('\n'));
+
+      const updatedUrls = urls
+        ? `${urls}\n${currentTabs.join('\n')}`
+        : currentTabs.join('\n');
+
+      setUrls(updatedUrls);
+      setIsEmptyList(false);
     } catch (error) {
       console.error('Error parsing tab URLs:', error);
     }
-  }, []);
+  }, [urls, setUrls, setIsEmptyList]);
 
   const handleRemoveDuplicates = useCallback(() => {
     const extractedUrls = handleUrlExtraction();
 
     if (!extractedUrls.hasValidUrls) {
-      setErrorMessage(VALIDATION_ERROR_TEXTS.empty);
-      setIsEmptyList(true);
-    } else {
-      const urlsArray = getUrlsArray(extractedUrls.text);
-
-      if (!urlsArray.length) {
-        setIsButtonDisabled(false);
-        setErrorMessage(VALIDATION_ERROR_TEXTS.invalid);
-      } else {
-        const uniqueUrls = new Set();
-
-        const normalizeUrl = (url: string) => url.replace(/\/$/, '');
-
-        urlsArray.forEach((url) => {
-          const normalizedUrl = normalizeUrl(url);
-          uniqueUrls.add(normalizedUrl);
-        });
-
-        const uniqueUrlsArray = Array.from(uniqueUrls);
-
-        setUrls(uniqueUrlsArray.join('\n'));
-        localStorage.setItem(
-          LOCAL_STORAGE_URLS_KEY,
-          uniqueUrlsArray.join('\n')
-        );
-
-        setErrorMessage('');
-      }
+      handleErrors(VALIDATION_ERROR_TEXTS.invalid);
+      return;
     }
-  }, [handleUrlExtraction, urls]);
+
+    const urlsArray = getUrlsArray(extractedUrls.text);
+
+    if (!urlsArray.length) {
+      handleErrors(VALIDATION_ERROR_TEXTS.empty);
+      return;
+    }
+
+    const uniqueUrlsArray = getUniqueUrlsArray(urlsArray);
+    const uniqueUrlsString = uniqueUrlsArray.join('\n');
+
+    setUrls(uniqueUrlsString);
+    setLocalstorageItem(LOCAL_STORAGE_URLS_KEY, uniqueUrlsString);
+    resetErrorMessage();
+  }, [handleUrlExtraction, urls, setUrls, resetErrorMessage, handleErrors]);
 
   const handleSort = useCallback(
     (sortDirection: 'asc' | 'desc') => {
       const extractedUrls = handleUrlExtraction();
 
       if (!extractedUrls.hasValidUrls) {
-        setErrorMessage(VALIDATION_ERROR_TEXTS.empty);
-        setIsEmptyList(true);
+        handleErrors(VALIDATION_ERROR_TEXTS.invalid);
       } else {
         const urlsArray = getUrlsArray(extractedUrls.text);
 
         if (!urlsArray.length) {
-          setIsButtonDisabled(false);
-          setErrorMessage(VALIDATION_ERROR_TEXTS.invalid);
+          handleErrors(VALIDATION_ERROR_TEXTS.empty);
         } else {
-          const sortedUrls =
-            sortDirection === 'asc'
-              ? urlsArray.sort()
-              : urlsArray.sort().reverse();
+          const sortedUrls = sortUrls(urlsArray, sortDirection);
 
           setUrls(sortedUrls.join('\n'));
-          localStorage.setItem(LOCAL_STORAGE_URLS_KEY, sortedUrls.join('\n'));
-          localStorage.setItem(LOCAL_STORAGE_SORT_KEY, sortDirection);
+          setLocalstorageItem(LOCAL_STORAGE_URLS_KEY, sortedUrls.join('\n'));
+          setLocalstorageItem(LOCAL_STORAGE_SORT_KEY, sortDirection);
 
-          setErrorMessage('');
+          setIsEmptyList(false);
+          resetErrorMessage();
         }
       }
     },
-    [urls]
+    [urls, handleUrlExtraction, setUrls, setIsEmptyList, resetErrorMessage]
   );
-
-  const getUrlsArray = (text: string) =>
-    text.split('\n').filter((url) => url.trim() !== '');
 
   const handleOpenAllUrls = useCallback(() => {
     const extractedUrls = handleUrlExtraction();
 
     if (!extractedUrls.hasValidUrls) {
-      setErrorMessage(VALIDATION_ERROR_TEXTS.empty);
+      handleErrors(VALIDATION_ERROR_TEXTS.invalid);
     } else {
-      const urlsArray = getUrlsArray(extractedUrls.text);
+      const isLazyLoad =
+        getLocalstorageItem(LOCAL_STORAGE_LAZY_LOAD_KEY) === 'on';
 
       if (!urlsArray.length) {
-        setIsButtonDisabled(false);
-        setErrorMessage(VALIDATION_ERROR_TEXTS.invalid);
+        handleErrors(VALIDATION_ERROR_TEXTS.empty);
       } else {
         void chrome.runtime.sendMessage({
           action: 'openAllUrls',
           urls: urlsArray,
-          lazyLoad,
+          lazyLoad: isLazyLoad,
         });
       }
     }
-  }, [handleUrlExtraction, urls, lazyLoad, setErrorMessage]);
+  }, [urls, handleUrlExtraction, urlsArray, handleErrors]);
 
   useModEnterKeyPress(handleOpenAllUrls);
-  usePaste(handlePaste);
+  usePaste(handlePaste, isPasteHtml);
 
   return (
     <ThemeProvider>
-      <div className={styles.app}>
-        <div className={styles.container}>
-          <TopBar />
-          <Options
-            isEmptyList={isEmptyList}
-            lazyLoad={lazyLoad}
-            pasteHtml={pasteHtml}
-            onLazyLoad={handleSwitch}
-            onPasteHtml={handlePasteChange}
-            onRemoveDuplicates={handleRemoveDuplicates}
-            onSort={handleSort}
-          />
-          <section className={styles.form}>
-            <Input
-              value={urls}
-              onChange={handleInputChange}
-              errorMessage={errorMessage}
-            />
-            <div className={styles.buttons}>
-              <Button
-                size={'m'}
-                icon={ArrowDownFromLine}
-                onClick={() => void handleTabsParsing()}
-                text={PARSE_TAB_URLS_BUTTON.label}
-                tooltip={PARSE_TAB_URLS_BUTTON.tooltip}
-              />
-              <div className={styles.cta}>
-                <ClipboardButton text={urls} size={18} />
-                <Button
-                  size={'m'}
-                  icon={BroomMotion}
-                  disabled={isButtonDisabled}
-                  onClick={handleUrlExtraction}
-                  text={EXTRACT_BUTTON.label}
-                  tooltip={EXTRACT_BUTTON.tooltip}
-                />
-                <Button
-                  size={'m'}
-                  icon={ArrowUpRightFromSquare}
-                  view={'action'}
-                  disabled={isButtonDisabled}
-                  onClick={handleOpenAllUrls}
-                  text={OPEN_ALL_URLS_BUTTON.label}
-                  tooltip={OPEN_ALL_URLS_BUTTON.tooltip}
-                />
-              </div>
-            </div>
-          </section>
-        </div>
-      </div>
+      <Flex
+        className={spacing({ pt: 8, px: 8, pb: 10 })}
+        direction={'column'}
+        width={620}
+        gap={4}
+      >
+        <TopBar />
+        <Form
+          value={urls}
+          urlsCount={extractedUrls.count}
+          disabled={isEmptyList}
+          errorMessage={errorMessage}
+          onSort={handleSort}
+          onChange={handleInputChange}
+          onRemoveDuplicates={handleRemoveDuplicates}
+          onParseTabs={handleTabsParsing}
+          onExtract={handleUrlExtraction}
+          onOpenAll={handleOpenAllUrls}
+        />
+      </Flex>
     </ThemeProvider>
   );
 };

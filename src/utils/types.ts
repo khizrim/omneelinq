@@ -1,15 +1,17 @@
-export type Button = {
-  label: string;
-  tooltip?: {
-    title: string;
-    description?: string;
-    hotkey?: string;
-  };
+export type TooltipTextsProps = {
+  title: string;
+  description?: string;
+  hotkey?: string;
 };
 
-export type Switch = {
+export type ButtonTextsProps = {
+  label: string;
+  tooltip?: TooltipTextsProps;
+};
+
+export type SwitchTextsProps = {
   label: string;
   helpPopover?: string;
 };
 
-export type LocalStorageKey = 'sort' | 'switch-state' | 'paste-html' | 'urls';
+export type LocalStorageKey = 'sort' | 'lazy' | 'paste-html' | 'urls';

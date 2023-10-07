@@ -11,11 +11,11 @@
     "message": "Link it up!",
     "description": "Extension default title"
   },
-  "labelLazyloadSwitch": {
+  "labelLazyLoadSwitch": {
     "message": "Open One-by-One",
     "description": "Label for the 'Open One-by-One' switch"
   },
-  "helpPopoverLazyloadSwitch": {
+  "helpPopoverLazyLoadSwitch": {
     "message": "A new tab will not be created until the current tab is fully loaded.",
     "description": "Help popover text for the 'Open One-by-One' switch"
   },
@@ -90,5 +90,9 @@
   "labelReportBugButton": {
     "message": "Report a Bug",
     "description": "Label for the 'Report a Bug' button"
+  },
+  "linksCountText": {
+    "message": "Links to open:",
+    "description": "Text for the links count"
   }
 }
