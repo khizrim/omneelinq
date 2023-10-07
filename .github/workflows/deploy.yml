@@ -56,12 +56,12 @@ jobs:
         run: pnpm run build
 
       - name: Prepare Extension for Publishing
-        run: pnpm run prepare
+        run: zip -r omneelinq.zip ./build
 
       - name: Publish Extension to Chrome Web Store
         uses: mnao305/chrome-extension-upload@v4.0.1
         with:
-          file-path: ./extension.zip
+          file-path: ./omneelinq.zip
           extension-id: ${{ secrets.EXTENSION_ID }}
           client-id: ${{ secrets.CLIENT_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}

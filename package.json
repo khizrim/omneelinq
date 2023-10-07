@@ -5,7 +5,6 @@
   "main": "index.tsx",
   "scripts": {
     "build": "webpack",
-    "prepare": "pnpm run build && zip -r omneelinq.zip ./build",
     "start": "webpack --watch",
     "lint": "pnpm run lint:code && pnpm run lint:styles && pnpm run lint:prettier",
     "lint:code": "eslint './src/**/*.{js,ts,tsx}'",
