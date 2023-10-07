@@ -25,6 +25,7 @@
     "@gravity-ui/icons": "^2.6.0",
     "@gravity-ui/uikit": "^5.17.0",
     "@semantic-release/git": "^10.0.1",
+    "@svgr/webpack": "^8.1.0",
     "@types/chrome": "^0.0.246",
     "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.10",
@@ -49,7 +50,6 @@
     "stylelint-order": "^6.0.3",
     "ts-loader": "^9.4.4",
     "typescript": "^5.2.2",
-    "url-loader": "^4.1.1",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
@@ -93,6 +93,14 @@
     ],
     "rules": {
       "@typescript-eslint/consistent-type-imports": "error",
+      "@typescript-eslint/no-misused-promises": [
+        2,
+        {
+          "checksVoidReturn": {
+            "attributes": false
+          }
+        }
+      ],
       "import/order": [
         "error",
         {

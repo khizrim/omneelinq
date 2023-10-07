@@ -1,12 +1,6 @@
 import React from 'react';
 
-import {
-  ActionTooltip,
-  Switch as SwitchComponent,
-  Text,
-} from '@gravity-ui/uikit';
-
-import styles from './Switch.module.css';
+import { ActionTooltip, Switch as SwitchComponent } from '@gravity-ui/uikit';
 
 export type SwitchProps = {
   label?: string;
@@ -21,15 +15,17 @@ export const Switch = ({ label, popover, state, onToggle }: SwitchProps) => {
   };
 
   return (
-    <div className={styles.switch}>
-      <ActionTooltip
-        title={label || popover?.slice(0, 16) || ''}
-        description={popover}
-        openDelay={1000}
-      >
-        <SwitchComponent size={'m'} checked={state} onChange={handleToggle} />
-      </ActionTooltip>
-      <Text>{label}</Text>
-    </div>
+    <ActionTooltip
+      title={label || popover?.slice(0, 16) || ''}
+      description={popover}
+      openDelay={1000}
+    >
+      <SwitchComponent
+        size={'m'}
+        checked={state}
+        onChange={handleToggle}
+        content={label}
+      />
+    </ActionTooltip>
   );
 };
