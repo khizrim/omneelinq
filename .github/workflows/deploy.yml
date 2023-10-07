@@ -44,7 +44,6 @@ jobs:
       - name: Format manifest.json with Prettier
         run: pnpm prettier --write "public/manifest.json"
 
-    
       - name: Commit and Push Version Changes
         run: |
           git config user.name "${{ github.actor }}"
@@ -56,8 +55,8 @@ jobs:
       - name: Build Extension
         run: pnpm run build
 
-      - name: Zip Extension
-        run: zip -r extension.zip ./build
+      - name: Prepare Extension for Publishing
+        run: pnpm run prepare
 
       - name: Publish Extension to Chrome Web Store
         uses: mnao305/chrome-extension-upload@v4.0.1

@@ -7,13 +7,13 @@
       "semantic-release-chrome",
       {
         "extensionId": "dhagnbnofnklmhfdggckcpmhafmblajf",
-        "asset": "extension.zip"
+        "asset": "omneelinq.zip"
       }
     ],
     [
       "@semantic-release/github",
       {
-        "assets": ["extension.zip"]
+        "assets": ["omneelinq.zip"]
       }
     ]
   ]
