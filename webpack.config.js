@@ -4,12 +4,12 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    index: path.join(__dirname, 'src/index.tsx'),
+    popup: path.join(__dirname, 'src/index.tsx'),
     background: path.join(__dirname, 'src/background.ts'),
   },
   output: {
     path: path.join(__dirname, 'build'),
-    filename: '[name].js',
+    filename: '[name]/[name].js',
     assetModuleFilename: 'assets/[hash][ext]',
     clean: true,
   },
@@ -49,7 +49,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      filename: 'popup/popup.html',
+      template: './public/popup/popup.html',
     }),
     new CopyPlugin({
       patterns: [
@@ -57,7 +58,7 @@ module.exports = {
           from: 'public',
           to: '.',
           globOptions: {
-            ignore: ['**/index.html'],
+            ignore: ['**/popup/popup.html'],
           },
         },
       ],

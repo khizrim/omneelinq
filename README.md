@@ -1,6 +1,6 @@
 # Omneelinq: Open Multiple Links in New Tabs
 
-![Omneelinq Logo](public/images/icon-48.png)
+![Omneelinq Logo](public/icons/48.png)
 
 **Omneelinq** is a powerful Chrome extension that enhances your browsing efficiency by allowing you to open multiple links in new tabs at once, extract links from text, and more. Save time and streamline your online research and browsing experience.
 
