@@ -3,7 +3,7 @@
   "description": "__MSG_extDescription__",
   "version": "1.2.1",
   "manifest_version": 3,
-  "default_locale": "ru",
+  "default_locale": "en",
   "author": "kh.makhmudov@gmail.com",
   "action": {
     "default_popup": "popup/popup.html",
