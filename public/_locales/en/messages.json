@@ -35,17 +35,17 @@
     "message": "Remove Duplicates",
     "description": "Label for the 'Remove Duplicates' button"
   },
-  "labelParseTabsButton": {
-    "message": "Parse Tabs",
-    "description": "Label for the 'Parse Tabs' button"
+  "labelListTabsButton": {
+    "message": "List All Tabs",
+    "description": "Label for the 'List All Tabs' button"
   },
-  "tooltipTitleParseTabsButton": {
+  "tooltipTitleListTabsButton": {
     "message": "Get All Tab Links",
-    "description": "Tooltip title for the 'Parse Tabs' button"
+    "description": "Tooltip title for the 'List All Tabs' button"
   },
-  "tooltipDescriptionParseTabsButton": {
-    "message": "Parse links from all tabs opened in the current window",
-    "description": "Tooltip description for the 'Parse Tabs' button"
+  "tooltipDescriptionListTabsButton": {
+    "message": "Get links from all tabs opened in the current window",
+    "description": "Tooltip description for the 'List All Tabs' button"
   },
   "labelOpenAllButton": {
     "message": "Open All",

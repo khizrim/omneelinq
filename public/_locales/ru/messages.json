@@ -35,15 +35,15 @@
     "message": "Удалить дубликаты",
     "description": "Метка для кнопки 'Удалить дубликаты'"
   },
-  "labelParseTabsButton": {
+  "labelListTabsButton": {
     "message": "Открытые вкладки",
     "description": "Метка для кнопки 'Открытые вкладки'"
   },
-  "tooltipTitleParseTabsButton": {
+  "tooltipTitleListTabsButton": {
     "message": "Получить все ссылки из вкладок",
     "description": "Заголовок подсказки для кнопки 'Анализ вкладок'"
   },
-  "tooltipDescriptionParseTabsButton": {
+  "tooltipDescriptionListTabsButton": {
     "message": "Анализирует ссылки со всех открытых вкладок в текущем окне",
     "description": "Описание подсказки для кнопки 'Анализ вкладок'"
   },
