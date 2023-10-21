@@ -40,11 +40,11 @@ export const REMOVE_DUPLICATES_BUTTON: ButtonTextsProps = {
   label: getMessage('labelRemoveDuplicatesButton'),
 };
 
-export const PARSE_TAB_URLS_BUTTON: ButtonTextsProps = {
-  label: getMessage('labelParseTabsButton'),
+export const LIST_TABS_URLS_BUTTON: ButtonTextsProps = {
+  label: getMessage('labelListTabsButton'),
   tooltip: {
-    title: getMessage('tooltipTitleParseTabsButton'),
-    description: getMessage('tooltipDescriptionParseTabsButton'),
+    title: getMessage('tooltipTitleListTabsButton'),
+    description: getMessage('tooltipDescriptionListTabsButton'),
   },
 };
 

@@ -5,7 +5,7 @@ import { ClipboardButton, Flex, Text } from '@gravity-ui/uikit';
 import {
   ExtractButton,
   OpenAllButton,
-  ParseTabsButton,
+  ListTabsButton,
 } from 'src/components/Buttons';
 import { Input } from 'src/components/Input';
 import { Options } from 'src/components/Options';
@@ -45,7 +45,7 @@ export const Form = ({
     <Input value={value} onChange={onChange} errorMessage={errorMessage} />
     <Flex justifyContent={'space-between'} alignItems={'center'}>
       <Flex>
-        <ParseTabsButton onClick={onParseTabs} />
+        <ListTabsButton onClick={onParseTabs} />
       </Flex>
       {urlsCount && <Text>{`${LINKS_COUNT_TEXT} ${urlsCount}`}</Text>}
       <Flex space={2} alignItems={'center'}>
