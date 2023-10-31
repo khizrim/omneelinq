@@ -7,10 +7,12 @@ import { Form, TopBar } from 'src/components';
 
 import { extractUrls } from 'src/helpers/extract-urls-from-text';
 import { getLocalstorageItem } from 'src/helpers/get-localstorage-item';
+import { getUniqueUrlsArray } from 'src/helpers/get-unique-urls-array';
 import { getUrlsArray } from 'src/helpers/get-urls-array';
 import { parseTabUrls } from 'src/helpers/parse-tab-urls';
 import { removeLocalstorageItem } from 'src/helpers/remove-localstorage-item';
 import { setLocalstorageItem } from 'src/helpers/set-localstorage-item';
+import { sortUrls } from 'src/helpers/sort-urls';
 import { useErrorMessage } from 'src/hooks/useErrorMessage';
 import { useModEnterKeyPress } from 'src/hooks/useModEnterKeyPress';
 import { usePaste } from 'src/hooks/usePaste';
@@ -22,9 +24,6 @@ import {
   LOCAL_STORAGE_URLS_KEY,
   VALIDATION_ERROR_TEXTS,
 } from 'src/utils/constants';
-
-import { getUniqueUrlsArray } from '../../helpers/get-unique-urls-array';
-import { sortUrls } from '../../helpers/sort-urls';
 
 export const App = () => {
   const { urls, setUrls, isEmptyList, setIsEmptyList } = useUrls();

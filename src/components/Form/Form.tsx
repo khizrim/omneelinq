@@ -9,8 +9,7 @@ import {
 } from 'src/components/Buttons';
 import { Input } from 'src/components/Input';
 import { Options } from 'src/components/Options';
-
-import { LINKS_COUNT_TEXT } from '../../utils/constants';
+import { LINKS_COUNT_TEXT } from 'src/utils/constants';
 
 export type FormProps = {
   disabled: boolean;
