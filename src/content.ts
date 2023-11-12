@@ -1,4 +1,4 @@
-import { getUniqueUrlsArray } from "./helpers/get-unique-urls-array";
+import { getUniqueUrlsArray } from './helpers/get-unique-urls-array';
 import { getUrlsFromSelection } from './helpers/get-urls-from-selection';
 
 chrome.runtime.onMessage.addListener((request) => {
