@@ -10,7 +10,8 @@
     "lint:code": "eslint './src/**/*.{js,ts,tsx}'",
     "lint:styles": "stylelint './src/**/*.css'",
     "lint:prettier": "prettier --check './src' './public'",
-    "lint:fix": "pnpm lint:code --fix && pnpm lint:styles --fix",
+    "lint:prettier:fix": "prettier --write './src' './public'",
+    "lint:fix": "pnpm lint:code --fix && pnpm lint:styles --fix && pnpm lint:prettier:fix",
     "type-check": "tsc --noEmit"
   },
   "keywords": [],
