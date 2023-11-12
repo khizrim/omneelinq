@@ -6,12 +6,12 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack --watch",
-    "lint": "pnpm lint:code && pnpm lint:styles && pnpm lint:prettier",
     "lint:code": "eslint './src/**/*.{js,ts,tsx}'",
     "lint:styles": "stylelint './src/**/*.css'",
     "lint:prettier": "prettier --check './src' './public'",
     "lint:prettier:fix": "prettier --write './src' './public'",
     "lint:fix": "pnpm lint:code --fix && pnpm lint:styles --fix && pnpm lint:prettier:fix",
+    "lint": "pnpm lint:code && pnpm lint:styles && pnpm lint:prettier",
     "type-check": "tsc --noEmit"
   },
   "keywords": [],

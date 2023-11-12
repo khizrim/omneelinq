@@ -6,6 +6,7 @@ import { Flex, spacing, ThemeProvider } from '@gravity-ui/uikit';
 import { Form, TopBar } from 'src/components';
 
 import { extractUrls } from 'src/helpers/extract-urls-from-text';
+import { getLinksFromHtml } from 'src/helpers/get-links-from-html';
 import { getLocalstorageItem } from 'src/helpers/get-localstorage-item';
 import { getUniqueUrlsArray } from 'src/helpers/get-unique-urls-array';
 import { getUrlsArray } from 'src/helpers/get-urls-array';
@@ -54,7 +55,15 @@ export const App = () => {
     const textAreaValue = textarea.value;
 
     const clipboardDataKey = pasteHtml ? 'text/html' : 'text/plain';
-    const clipboardData = e.clipboardData?.getData(clipboardDataKey) || '';
+    let clipboardData = e.clipboardData?.getData(clipboardDataKey) || '';
+
+    if (pasteHtml) {
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = clipboardData;
+
+      const links = getLinksFromHtml(tempDiv, false);
+      clipboardData = links.join('\n');
+    }
 
     const updatedValue =
       textAreaValue.substring(0, start) +
