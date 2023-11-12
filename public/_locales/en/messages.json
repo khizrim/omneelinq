@@ -20,12 +20,12 @@
     "description": "Help popover text for the 'Open One-by-One' switch"
   },
   "labelPasteHtmlSwitch": {
-    "message": "Paste as HTML",
-    "description": "Label for the 'Paste as HTML' switch"
+    "message": "Paste Embedded Links",
+    "description": "Label for the 'Paste Embedded Links' switch"
   },
   "helpPopoverPasteHtmlSwitch": {
-    "message": "Allows you to paste text as HTML, including all links and tags. You can easily extract all the links afterward.",
-    "description": "Help popover text for the 'Paste as HTML' switch"
+    "message": "Allows you to paste the links that are embedded in text.",
+    "description": "Help popover text for the 'Paste Embedded Links' switch"
   },
   "placeholderTextarea": {
     "message": "Enter a list of links or text containing links",

@@ -1,10 +1,10 @@
 import { URL_REGEX } from 'src/utils/constants';
 
-interface ExtractedUrlsProps {
+export type ExtractedUrlsProps = {
   hasValidUrls: boolean;
   count?: number;
   text: string;
-}
+};
 
 export const extractUrls = (text: string): ExtractedUrlsProps => {
   const matches = text.match(URL_REGEX);
