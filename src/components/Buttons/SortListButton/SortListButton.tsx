@@ -46,8 +46,8 @@ export const SortListButton = ({ disabled, onSort }: SortListButtonProps) => {
       sortDirection === 'asc' && !isSorted
         ? sortDirection
         : sortDirection === 'asc' && isSorted
-        ? 'desc'
-        : 'asc';
+          ? 'desc'
+          : 'asc';
 
     setSortDirection(updatedSortDirection);
     setIsSorted(true);
