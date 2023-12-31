@@ -27,5 +27,3 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     void chrome.tabs.sendMessage(tab.id, { action: 'runLinksOpener' });
   }
 });
-
-createContextMenu();
