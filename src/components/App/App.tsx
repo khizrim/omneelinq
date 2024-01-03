@@ -3,15 +3,14 @@ import React, { useCallback, useMemo } from 'react';
 
 import { Flex, spacing, ThemeProvider } from '@gravity-ui/uikit';
 
-import { Form, SortDirection, TopBar } from "src/components";
+import type { SortDirection } from 'src/components';
+import { Form, TopBar } from 'src/components';
 
 import { extractUrls } from 'src/helpers/extract-urls-from-text';
 import { getLinksFromHtml } from 'src/helpers/get-links-from-html';
 import { getUniqueUrlsArray } from 'src/helpers/get-unique-urls-array';
 import { getUrlsArray } from 'src/helpers/get-urls-array';
 import { parseTabUrls } from 'src/helpers/parse-tab-urls';
-import { removeLocalstorageItem } from 'src/helpers/remove-localstorage-item';
-import { setLocalstorageItem } from 'src/helpers/set-localstorage-item';
 import { sortUrls } from 'src/helpers/sort-urls';
 import { useErrorMessage } from 'src/hooks/useErrorMessage';
 import { useModEnterKeyPress } from 'src/hooks/useModEnterKeyPress';
@@ -44,39 +43,41 @@ export const App = () => {
     setIsEmptyList(true);
   };
 
-  const handlePaste = (e: ClipboardEvent, pasteHtml: boolean) => {
-    const textarea = e.target as HTMLTextAreaElement;
+  const handlePaste = useCallback(
+    (e: ClipboardEvent, pasteHtml: boolean) => {
+      const textarea = e.target as HTMLTextAreaElement;
 
-    const [start, end] = [
-      textarea.selectionStart || 0,
-      textarea.selectionEnd || 0,
-    ];
-    const textAreaValue = textarea.value;
+      const [start, end] = [
+        textarea.selectionStart || 0,
+        textarea.selectionEnd || 0,
+      ];
+      const textAreaValue = textarea.value;
 
-    const clipboardDataKey = pasteHtml ? 'text/html' : 'text/plain';
-    let clipboardData = e.clipboardData?.getData(clipboardDataKey) || '';
+      const clipboardDataKey = pasteHtml ? 'text/html' : 'text/plain';
+      let clipboardData = e.clipboardData?.getData(clipboardDataKey) || '';
 
-    if (pasteHtml) {
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = clipboardData;
+      if (pasteHtml) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = clipboardData;
 
-      const links = getLinksFromHtml(tempDiv, false);
-      clipboardData = links.join('\n');
-    }
+        const links = getLinksFromHtml(tempDiv, false);
+        clipboardData = links.join('\n');
+      }
 
-    const updatedValue =
-      textAreaValue.substring(0, start) +
-      clipboardData +
-      textAreaValue.substring(end);
+      const updatedValue =
+        textAreaValue.substring(0, start) +
+        clipboardData +
+        textAreaValue.substring(end);
 
-    setUrls(updatedValue);
-    setLocalstorageItem(LOCAL_STORAGE_URLS_KEY, updatedValue);
+      setUrls(updatedValue);
 
-    textarea.selectionStart = start + clipboardData.length;
-    textarea.selectionEnd = start + clipboardData.length;
+      textarea.selectionStart = start + clipboardData.length;
+      textarea.selectionEnd = start + clipboardData.length;
 
-    setIsEmptyList(!updatedValue);
-  };
+      setIsEmptyList(!updatedValue);
+    },
+    [getLinksFromHtml, setUrls, setIsEmptyList]
+  );
 
   const handleInputChange = useCallback(
     (e: { target: { value: SetStateAction<string> } }) => {
@@ -84,16 +85,16 @@ export const App = () => {
 
       if (inputValue) {
         resetErrorMessage();
+        console.log('And here');
         setUrls(inputValue);
         setIsEmptyList(false);
-        setLocalstorageItem(LOCAL_STORAGE_URLS_KEY, inputValue);
       } else {
         setUrls('');
         setIsEmptyList(true);
-        removeLocalstorageItem(LOCAL_STORAGE_URLS_KEY);
         setSettings((prevState) => {
           return {
             ...prevState,
+            [LOCAL_STORAGE_URLS_KEY]: '',
             [LOCAL_STORAGE_SORT_KEY]: 'unset',
           };
         });
@@ -106,14 +107,12 @@ export const App = () => {
   const handleUrlExtraction = useCallback(() => {
     setUrls(extractedUrls.text);
 
-    localStorage.setItem(LOCAL_STORAGE_URLS_KEY, extractedUrls.text);
-
     if (!extractedUrls.hasValidUrls) {
       handleErrors(VALIDATION_ERROR_TEXTS.noContent);
     }
 
     return extractedUrls;
-  }, [urls, extractedUrls, setUrls, handleErrors]);
+  }, [extractedUrls, setUrls, handleErrors]);
 
   const handleTabsParsing = useCallback(async () => {
     try {
@@ -149,7 +148,6 @@ export const App = () => {
     const uniqueUrlsString = uniqueUrlsArray.join('\n');
 
     setUrls(uniqueUrlsString);
-    setLocalstorageItem(LOCAL_STORAGE_URLS_KEY, uniqueUrlsString);
     resetErrorMessage();
   }, [handleUrlExtraction, urls, setUrls, resetErrorMessage, handleErrors]);
 
@@ -167,12 +165,10 @@ export const App = () => {
         } else {
           const sortedUrls = sortUrls(urlsArray, sortDirection);
 
-          setUrls(sortedUrls.join('\n'));
-          setLocalstorageItem(LOCAL_STORAGE_URLS_KEY, sortedUrls.join('\n'));
-
           setSettings((prevState) => {
             return {
               ...prevState,
+              [LOCAL_STORAGE_URLS_KEY]: sortedUrls.join('\n'),
               [LOCAL_STORAGE_SORT_KEY]: sortDirection,
             };
           });
@@ -182,7 +178,7 @@ export const App = () => {
         }
       }
     },
-    [urls, handleUrlExtraction, setUrls, setIsEmptyList, resetErrorMessage]
+    [handleUrlExtraction, setUrls, setIsEmptyList, resetErrorMessage]
   );
 
   const handleOpenAllUrls = useCallback(() => {
