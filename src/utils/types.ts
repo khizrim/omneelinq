@@ -14,4 +14,9 @@ export type SwitchTextsProps = {
   helpPopover?: string;
 };
 
-export type LocalStorageKey = 'sort' | 'lazy' | 'paste-html' | 'urls';
+export type LocalStorageKey =
+  | 'settings'
+  | 'sort'
+  | 'lazy'
+  | 'paste-html'
+  | 'urls';

@@ -3,11 +3,10 @@ import React, { useCallback, useMemo } from 'react';
 
 import { Flex, spacing, ThemeProvider } from '@gravity-ui/uikit';
 
-import { Form, TopBar } from 'src/components';
+import { Form, SortDirection, TopBar } from "src/components";
 
 import { extractUrls } from 'src/helpers/extract-urls-from-text';
 import { getLinksFromHtml } from 'src/helpers/get-links-from-html';
-import { getLocalstorageItem } from 'src/helpers/get-localstorage-item';
 import { getUniqueUrlsArray } from 'src/helpers/get-unique-urls-array';
 import { getUrlsArray } from 'src/helpers/get-urls-array';
 import { parseTabUrls } from 'src/helpers/parse-tab-urls';
@@ -18,6 +17,7 @@ import { useErrorMessage } from 'src/hooks/useErrorMessage';
 import { useModEnterKeyPress } from 'src/hooks/useModEnterKeyPress';
 import { usePaste } from 'src/hooks/usePaste';
 import { useUrls } from 'src/hooks/useUrls';
+import { useSettingsStore } from 'src/store/store';
 import {
   LOCAL_STORAGE_LAZY_LOAD_KEY,
   LOCAL_STORAGE_PASTE_HTML_KEY,
@@ -27,12 +27,11 @@ import {
 } from 'src/utils/constants';
 
 export const App = () => {
+  const [settings, setSettings] = useSettingsStore();
+
   const { urls, setUrls, isEmptyList, setIsEmptyList } = useUrls();
   const { errorMessage, setErrorMessage, resetErrorMessage } =
     useErrorMessage();
-
-  const isPasteHtml =
-    getLocalstorageItem(LOCAL_STORAGE_PASTE_HTML_KEY) === 'on';
 
   const extractedUrls = useMemo(() => extractUrls(urls), [urls]);
   const urlsArray = useMemo(
@@ -92,7 +91,12 @@ export const App = () => {
         setUrls('');
         setIsEmptyList(true);
         removeLocalstorageItem(LOCAL_STORAGE_URLS_KEY);
-        removeLocalstorageItem(LOCAL_STORAGE_SORT_KEY);
+        setSettings((prevState) => {
+          return {
+            ...prevState,
+            [LOCAL_STORAGE_SORT_KEY]: 'unset',
+          };
+        });
         resetErrorMessage();
       }
     },
@@ -150,7 +154,7 @@ export const App = () => {
   }, [handleUrlExtraction, urls, setUrls, resetErrorMessage, handleErrors]);
 
   const handleSort = useCallback(
-    (sortDirection: 'asc' | 'desc') => {
+    (sortDirection: SortDirection) => {
       const extractedUrls = handleUrlExtraction();
 
       if (!extractedUrls.hasValidUrls) {
@@ -165,7 +169,13 @@ export const App = () => {
 
           setUrls(sortedUrls.join('\n'));
           setLocalstorageItem(LOCAL_STORAGE_URLS_KEY, sortedUrls.join('\n'));
-          setLocalstorageItem(LOCAL_STORAGE_SORT_KEY, sortDirection);
+
+          setSettings((prevState) => {
+            return {
+              ...prevState,
+              [LOCAL_STORAGE_SORT_KEY]: sortDirection,
+            };
+          });
 
           setIsEmptyList(false);
           resetErrorMessage();
@@ -181,23 +191,20 @@ export const App = () => {
     if (!extractedUrls.hasValidUrls) {
       handleErrors(VALIDATION_ERROR_TEXTS.invalid);
     } else {
-      const isLazyLoad =
-        getLocalstorageItem(LOCAL_STORAGE_LAZY_LOAD_KEY) === 'on';
-
       if (!urlsArray.length) {
         handleErrors(VALIDATION_ERROR_TEXTS.empty);
       } else {
         void chrome.runtime.sendMessage({
           action: 'openAllUrls',
           urls: urlsArray,
-          lazyLoad: isLazyLoad,
+          lazyLoad: settings[LOCAL_STORAGE_LAZY_LOAD_KEY] === 'on',
         });
       }
     }
-  }, [urls, handleUrlExtraction, urlsArray, handleErrors]);
+  }, [urls, handleUrlExtraction, urlsArray, settings, handleErrors]);
 
   useModEnterKeyPress(handleOpenAllUrls);
-  usePaste(handlePaste, isPasteHtml);
+  usePaste(handlePaste, settings[LOCAL_STORAGE_PASTE_HTML_KEY] === 'on');
 
   return (
     <ThemeProvider>
