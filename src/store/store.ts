@@ -4,11 +4,15 @@ import {
   LOCAL_STORAGE_LAZY_LOAD_KEY,
   LOCAL_STORAGE_PASTE_HTML_KEY,
   LOCAL_STORAGE_SETTINGS_KEY,
+  LOCAL_STORAGE_SORT_KEY,
+  LOCAL_STORAGE_URLS_KEY,
 } from 'src/utils/constants';
 
 const INITIAL_VALUE = {
   [LOCAL_STORAGE_LAZY_LOAD_KEY]: 'off',
   [LOCAL_STORAGE_PASTE_HTML_KEY]: 'off',
+  [LOCAL_STORAGE_SORT_KEY]: 'asc',
+  [LOCAL_STORAGE_URLS_KEY]: '',
 };
 
 export const useSettingsStore = createChromeStorageStateHookLocal(

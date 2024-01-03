@@ -1,23 +1,37 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { getLocalstorageItem } from 'src/helpers/get-localstorage-item';
+import { useSettingsStore } from 'src/store/store';
 import { LOCAL_STORAGE_URLS_KEY } from 'src/utils/constants';
 
 import { useErrorMessage } from './useErrorMessage';
 
 export const useUrls = () => {
+  const [settings, setSettings] = useSettingsStore();
+
+  const urls = useMemo(() => settings[LOCAL_STORAGE_URLS_KEY], [settings]);
+
   const { resetErrorMessage } = useErrorMessage();
 
-  const [urls, setUrls] = useState<string>(
-    getLocalstorageItem(LOCAL_STORAGE_URLS_KEY) || ''
-  );
-
   const [isEmptyList, setIsEmptyList] = useState<boolean>(false);
+
+  const setUrls = useCallback(
+    (updatedUrls: string) => {
+      setSettings((prevState) => {
+        return {
+          ...prevState,
+          [LOCAL_STORAGE_URLS_KEY]: updatedUrls,
+        };
+      });
+    },
+    [settings]
+  );
 
   useEffect(() => {
     if (urls === '') {
       setIsEmptyList(urls === '');
       resetErrorMessage();
+    } else {
+      setIsEmptyList(false);
     }
   }, [urls]);
 
