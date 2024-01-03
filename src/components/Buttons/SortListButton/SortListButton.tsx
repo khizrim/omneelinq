@@ -6,6 +6,7 @@ import {
 } from '@gravity-ui/icons';
 
 import { Button } from 'src/components/Button';
+import { useSettingsStore } from 'src/store/store';
 import { LOCAL_STORAGE_SORT_KEY } from 'src/utils/constants';
 
 import type {
@@ -14,17 +15,9 @@ import type {
 } from './SortListButton.types';
 
 export const SortListButton = ({ disabled, onSort }: SortListButtonProps) => {
-  const storedSortDirection: SortDirection = localStorage.getItem(
-    LOCAL_STORAGE_SORT_KEY
-  ) as SortDirection;
+  const [settings, setSettings] = useSettingsStore();
 
-  const [isSorted, setIsSorted] = useState<boolean>(
-    !!storedSortDirection || false
-  );
-
-  const [sortDirection, setSortDirection] = useState<SortDirection>(
-    storedSortDirection || 'asc'
-  );
+  const [isSorted, setIsSorted] = useState<boolean>(false);
 
   useEffect(() => {
     if (disabled) {
@@ -33,34 +26,45 @@ export const SortListButton = ({ disabled, onSort }: SortListButtonProps) => {
   }, [disabled]);
 
   useEffect(() => {
-    localStorage.setItem('sort', sortDirection);
-  }, [sortDirection]);
+    setIsSorted(settings[LOCAL_STORAGE_SORT_KEY] !== 'unset');
+  });
 
   const handleSort = useCallback(() => {
     if (disabled) {
       setIsSorted(false);
+      setSettings((prevState) => {
+        return {
+          ...prevState,
+          [LOCAL_STORAGE_SORT_KEY]: 'unset',
+        };
+      });
       return;
     }
 
-    const updatedSortDirection =
-      sortDirection === 'asc' && !isSorted
-        ? sortDirection
-        : sortDirection === 'asc' && isSorted
+    const updatedSortDirection: SortDirection =
+      settings[LOCAL_STORAGE_SORT_KEY] === 'asc' && !isSorted
+        ? settings[LOCAL_STORAGE_SORT_KEY]
+        : settings[LOCAL_STORAGE_SORT_KEY] === 'asc' && isSorted
           ? 'desc'
           : 'asc';
 
-    setSortDirection(updatedSortDirection);
+    setSettings((prevState) => {
+      return {
+        ...prevState,
+        [LOCAL_STORAGE_SORT_KEY]: updatedSortDirection,
+      };
+    });
     setIsSorted(true);
 
     onSort(updatedSortDirection);
-  }, [disabled, isSorted, onSort, sortDirection]);
+  }, [disabled, isSorted, onSort, settings]);
 
   return (
     <Button
       icon={
-        sortDirection === 'asc'
-          ? BarsAscendingAlignRight
-          : BarsDescendingAlignRight
+        settings[LOCAL_STORAGE_SORT_KEY] === 'desc'
+          ? BarsDescendingAlignRight
+          : BarsAscendingAlignRight
       }
       view={'flat'}
       onClick={handleSort}

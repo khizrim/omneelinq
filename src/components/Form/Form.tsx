@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ClipboardButton, Flex, Text } from '@gravity-ui/uikit';
 
+import type { SortDirection } from 'src/components/Buttons';
 import {
   ExtractButton,
   OpenAllButton,
@@ -16,7 +17,7 @@ export type FormProps = {
   value: string;
   urlsCount?: number;
   errorMessage: string;
-  onSort: (sortDirection: 'asc' | 'desc') => void;
+  onSort: (sortDirection: SortDirection) => void;
   onChange: (e: { target: { value: React.SetStateAction<string> } }) => void;
   onRemoveDuplicates: () => void;
   onParseTabs: () => Promise<void>;

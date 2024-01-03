@@ -13,6 +13,8 @@ export const EXTENSION_VERSION = getVersion();
 
 export const MAINTAINER_EMAIL = 'khizrim@khizrim.ru';
 
+export const LOCAL_STORAGE_SETTINGS_KEY: LocalStorageKey = 'settings';
+
 export const LOCAL_STORAGE_URLS_KEY: LocalStorageKey = 'urls';
 
 export const LOCAL_STORAGE_SORT_KEY: LocalStorageKey = 'sort';
