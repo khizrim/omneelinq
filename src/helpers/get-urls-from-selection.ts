@@ -1,6 +1,6 @@
 import { getLinksFromHtml } from './get-links-from-html';
 
-export const getUrlsFromSelection = (selection: Selection) => {
+export const getUrlsFromSelection = (selection: Selection): string[] => {
   if (selection.rangeCount === 0) {
     return [];
   }

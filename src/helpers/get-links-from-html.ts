@@ -1,7 +1,7 @@
 export const getLinksFromHtml = (
   html: HTMLElement,
   getRelativeLinks: boolean
-): (string | null)[] => {
+): string[] => {
   const origin = window.location.origin;
 
   return Array.from(html.querySelectorAll('a'))
@@ -14,7 +14,7 @@ export const getLinksFromHtml = (
         return origin + href;
       }
 
-      return null;
+      return '';
     })
     .filter((href) => href !== null);
 };

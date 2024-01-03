@@ -18,4 +18,20 @@ chrome.runtime.onMessage.addListener((request) => {
       }
     }
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  if (request.action === 'runLinksCopier') {
+    const selection = document.getSelection();
+
+    if (selection) {
+      const links = getUrlsFromSelection(selection);
+
+      if (links.length) {
+        void chrome.runtime.sendMessage({
+          action: 'copyUrlsToList',
+          urls: getUniqueUrlsArray(links),
+        });
+      }
+    }
+  }
 });
