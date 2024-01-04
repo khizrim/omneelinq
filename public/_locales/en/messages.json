@@ -94,5 +94,13 @@
   "linksCountText": {
     "message": "Links to open:",
     "description": "Text for the links count"
+  },
+  "openAllLinksFromSelection": {
+    "message": "Open All Links",
+    "description": "Text for 'Open All Links' action in context menu"
+  },
+  "copyLinksToList": {
+    "message": "Copy Links to List",
+    "description": "Text for 'Copy Links to List' action in context menu"
   }
 }

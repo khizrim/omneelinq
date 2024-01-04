@@ -1,16 +1,17 @@
 import { copyUrlsToList } from './helpers/copy-urls-to-list';
+import { getMessage } from './helpers/get-message';
 import { openAllUrls } from './helpers/open-all-urls';
 
 function createContextMenu() {
   chrome.contextMenus.create({
     id: 'openAllLinksFromSelection',
-    title: 'Open All Links',
+    title: getMessage('openAllLinksFromSelection'),
     contexts: ['selection'],
   });
 
   chrome.contextMenus.create({
     id: 'copyLinksToList',
-    title: 'Copy Links to List',
+    title: getMessage('copyLinksToList'),
     contexts: ['selection'],
   });
 }
