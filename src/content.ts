@@ -32,6 +32,16 @@ chrome.runtime.onMessage.addListener((request) => {
           urls: getUniqueUrlsArray(links),
         });
       }
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const link: string = request.link as string;
+
+      if (!links.length && link) {
+        void chrome.runtime.sendMessage({
+          action: 'copyUrlsToList',
+          urls: getUniqueUrlsArray([link]),
+        });
+      }
     }
   }
 });
