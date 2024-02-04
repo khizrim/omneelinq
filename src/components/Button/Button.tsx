@@ -15,9 +15,16 @@ export type ButtonProps = {
   tooltip?: TooltipTextsProps;
 } & ButtonComponentProps;
 
-export const Button = ({ icon, children, tooltip, ...props }: ButtonProps) => {
+export const Button = ({
+  icon,
+  children,
+  tooltip,
+  view = 'outlined',
+  size = 'l',
+  ...props
+}: ButtonProps) => {
   const button = (
-    <ButtonComponent {...props}>
+    <ButtonComponent view={view} size={size} {...props}>
       {icon && <Icon data={icon} />}
       {children}
     </ButtonComponent>
