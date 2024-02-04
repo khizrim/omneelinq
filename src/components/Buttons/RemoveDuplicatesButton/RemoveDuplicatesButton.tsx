@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SquareMinus } from '@gravity-ui/icons';
+import { CopyMinus } from '@gravity-ui/icons';
 import type { ButtonProps } from '@gravity-ui/uikit';
 
 import { Button } from 'src/components/Button';
@@ -16,7 +16,7 @@ export const RemoveDuplicatesButton = ({
 }: RemoveDuplicatesButtonsProps) => {
   return (
     <Button
-      icon={SquareMinus}
+      icon={CopyMinus}
       view={'flat'}
       onClick={onRemoveDuplicates}
       {...props}

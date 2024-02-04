@@ -219,7 +219,7 @@ export const App = () => {
         className={spacing({ pt: 8, px: 8, pb: 10 })}
         direction={'column'}
         width={620}
-        gap={4}
+        gap={2}
       >
         <TopBar />
         {settings[LOCAL_STORAGE_NOTIFICATIONS_KEY] === 'on' && (

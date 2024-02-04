@@ -10,9 +10,9 @@ export const Input = ({ value, onChange, errorMessage }: InputProps) => (
   <TextArea
     autoFocus={true}
     value={value}
-    size={'m'}
+    size={'l'}
     rows={15}
-    style={{ lineHeight: '1.8', height: '266px' }}
+    style={{ lineHeight: '1.8', height: '280px' }}
     placeholder={TEXTAREA_PLACEHOLDER}
     validationState={errorMessage ? 'invalid' : undefined}
     errorMessage={errorMessage}

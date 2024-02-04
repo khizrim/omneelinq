@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import {
-  BarsAscendingAlignRight,
-  BarsDescendingAlignRight,
+  BarsAscendingAlignLeftArrowDown,
+  BarsDescendingAlignLeftArrowUp,
 } from '@gravity-ui/icons';
 
 import { Button } from 'src/components/Button';
@@ -63,8 +63,8 @@ export const SortListButton = ({ disabled, onSort }: SortListButtonProps) => {
     <Button
       icon={
         settings[LOCAL_STORAGE_SORT_KEY] === 'desc'
-          ? BarsDescendingAlignRight
-          : BarsAscendingAlignRight
+          ? BarsDescendingAlignLeftArrowUp
+          : BarsAscendingAlignLeftArrowDown
       }
       view={'flat'}
       onClick={handleSort}
