@@ -8,3 +8,4 @@ export * from './Options';
 export * from './Switch';
 export * from './Switches';
 export * from './TopBar';
+export * from './WhatsNew';

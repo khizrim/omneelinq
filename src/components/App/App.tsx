@@ -1,7 +1,7 @@
 import type { SetStateAction } from 'react';
 import React, { useCallback, useMemo } from 'react';
 
-import { Flex, spacing, ThemeProvider } from '@gravity-ui/uikit';
+import { Alert, Flex, spacing, ThemeProvider } from '@gravity-ui/uikit';
 
 import type { SortDirection } from 'src/components';
 import { Form, TopBar } from 'src/components';
@@ -19,9 +19,11 @@ import { useUrls } from 'src/hooks/useUrls';
 import { useSettingsStore } from 'src/store/store';
 import {
   LOCAL_STORAGE_LAZY_LOAD_KEY,
+  LOCAL_STORAGE_NOTIFICATIONS_KEY,
   LOCAL_STORAGE_PASTE_HTML_KEY,
   LOCAL_STORAGE_SORT_KEY,
   LOCAL_STORAGE_URLS_KEY,
+  UPDATE_NOTIFICATION_TEXTS,
   VALIDATION_ERROR_TEXTS,
 } from 'src/utils/constants';
 
@@ -199,6 +201,15 @@ export const App = () => {
     }
   }, [urls, handleUrlExtraction, urlsArray, settings, handleErrors]);
 
+  const handleNotificationsClose = useCallback(() => {
+    setSettings((prevState) => {
+      return {
+        ...prevState,
+        [LOCAL_STORAGE_NOTIFICATIONS_KEY]: 'off',
+      };
+    });
+  }, []);
+
   useModEnterKeyPress(handleOpenAllUrls);
   usePaste(handlePaste, settings[LOCAL_STORAGE_PASTE_HTML_KEY] === 'on');
 
@@ -211,6 +222,14 @@ export const App = () => {
         gap={4}
       >
         <TopBar />
+        {settings[LOCAL_STORAGE_NOTIFICATIONS_KEY] === 'on' && (
+          <Alert
+            theme="info"
+            title={UPDATE_NOTIFICATION_TEXTS.title}
+            message={UPDATE_NOTIFICATION_TEXTS.message}
+            onClose={handleNotificationsClose}
+          />
+        )}
         <Form
           value={urls}
           urlsCount={extractedUrls.count}

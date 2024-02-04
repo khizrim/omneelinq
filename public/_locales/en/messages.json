@@ -102,5 +102,17 @@
   "copyLinksToList": {
     "message": "Copy Links to List",
     "description": "Text for 'Copy Links to List' action in context menu"
+  },
+  "updateNotificationTitle": {
+    "message": "You can now add links to the list from the selected text",
+    "description": "Title for the update notification"
+  },
+  "updateNotificationMessage": {
+    "message": "To add links to the list, select any text fragment, right-click, and choose \"Copy Links to List\" in Omneelinq",
+    "description": "Message for the update notification"
+  },
+  "labelWhatsNewButton": {
+    "message": "What's New?",
+    "description": "Label for the 'What's New?' button"
   }
 }

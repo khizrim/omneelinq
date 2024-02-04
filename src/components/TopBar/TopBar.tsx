@@ -4,6 +4,7 @@ import { Flex, Label, spacing } from '@gravity-ui/uikit';
 
 import { BugReport } from 'src/components/BugReport';
 import { Logo } from 'src/components/Logo';
+import { WhatsNew } from 'src/components/WhatsNew';
 import { EXTENSION_VERSION } from 'src/utils/constants';
 
 export const TopBar = () => (
@@ -16,5 +17,6 @@ export const TopBar = () => (
     <Logo />
     <Label>{EXTENSION_VERSION}</Label>
     <BugReport />
+    <WhatsNew />
   </Flex>
 );

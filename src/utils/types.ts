@@ -19,4 +19,5 @@ export type LocalStorageKey =
   | 'sort'
   | 'lazy'
   | 'paste-html'
-  | 'urls';
+  | 'urls'
+  | 'notifications';
