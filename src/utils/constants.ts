@@ -23,6 +23,8 @@ export const LOCAL_STORAGE_LAZY_LOAD_KEY: LocalStorageKey = 'lazy';
 
 export const LOCAL_STORAGE_PASTE_HTML_KEY: LocalStorageKey = 'paste-html';
 
+export const LOCAL_STORAGE_NOTIFICATIONS_KEY: LocalStorageKey = 'notifications';
+
 export const URL_REGEX =
   /\b(?:https?|ftp):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]*[-A-Za-z0-9+&@#/%=~_|]/gi;
 
@@ -78,4 +80,13 @@ export const BUG_REPORT_TEXTS = {
   label: getMessage('labelReportBugButton'),
 };
 
+export const WHATS_NEW_BUTTON_TEXTS = {
+  label: getMessage('labelWhatsNewButton'),
+};
+
 export const LINKS_COUNT_TEXT = getMessage('linksCountText');
+
+export const UPDATE_NOTIFICATION_TEXTS = {
+  title: getMessage('updateNotificationTitle'),
+  message: getMessage('updateNotificationMessage'),
+};
