@@ -23,7 +23,7 @@ export const useUrls = () => {
         };
       });
     },
-    [setSettings]
+    [settings, setSettings]
   );
 
   useEffect(() => {
