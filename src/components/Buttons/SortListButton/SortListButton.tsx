@@ -66,7 +66,7 @@ export const SortListButton = ({ disabled, onSort }: SortListButtonProps) => {
           ? BarsDescendingAlignLeftArrowUp
           : BarsAscendingAlignLeftArrowDown
       }
-      view={'outlined'}
+      view={'flat'}
       onClick={handleSort}
       selected={isSorted}
       disabled={disabled}

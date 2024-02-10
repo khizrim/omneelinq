@@ -23,12 +23,12 @@ export const useUrls = () => {
         };
       });
     },
-    [settings]
+    [setSettings]
   );
 
   useEffect(() => {
     if (urls === '') {
-      setIsEmptyList(urls === '');
+      setIsEmptyList(true);
       resetErrorMessage();
     } else {
       setIsEmptyList(false);

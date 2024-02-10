@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 
 import { CircleInfo } from '@gravity-ui/icons';
-import { Icon, Link } from '@gravity-ui/uikit';
 
+import { Button } from 'src/components/Button';
 import { useSettingsStore } from 'src/store/store';
 import {
   LOCAL_STORAGE_NOTIFICATIONS_KEY,
@@ -16,17 +16,19 @@ export const WhatsNew = () => {
     setSettings((prevState) => {
       return {
         ...prevState,
-        [LOCAL_STORAGE_NOTIFICATIONS_KEY]: 'on',
+        [LOCAL_STORAGE_NOTIFICATIONS_KEY]:
+          prevState[LOCAL_STORAGE_NOTIFICATIONS_KEY] === 'on' ? 'off' : 'on',
       };
     });
-  }, []);
+  }, [setSettings]);
 
   return (
-    <Link
+    <Button
+      href="#"
+      view={'flat'}
       onClick={handleNotificationsOpen}
       aria-label={WHATS_NEW_BUTTON_TEXTS.label}
-    >
-      <Icon data={CircleInfo} />
-    </Link>
+      icon={CircleInfo}
+    />
   );
 };

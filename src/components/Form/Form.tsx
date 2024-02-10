@@ -35,24 +35,34 @@ export const Form = ({
   onParseTabs,
   onExtract,
   onOpenAll,
-}: FormProps) => (
-  <>
-    <Options
-      disabled={disabled}
-      onRemoveDuplicates={onRemoveDuplicates}
-      onSort={onSort}
-    />
-    <Input value={value} onChange={onChange} errorMessage={errorMessage} />
-    <Flex justifyContent={'space-between'} alignItems={'center'}>
-      <Flex>
-        <ListTabsButton onClick={onParseTabs} />
-      </Flex>
-      {urlsCount && <Text>{`${LINKS_COUNT_TEXT} ${urlsCount}`}</Text>}
-      <Flex space={2} alignItems={'center'}>
-        {!disabled && <ClipboardButton text={value} size={18} />}
-        <ExtractButton disabled={disabled} onClick={onExtract} />
-        <OpenAllButton disabled={disabled} onClick={onOpenAll} />
-      </Flex>
-    </Flex>
-  </>
-);
+}: FormProps) => {
+  return (
+    <>
+      <Options
+        disabled={disabled}
+        onRemoveDuplicates={onRemoveDuplicates}
+        onSort={onSort}
+      />
+      <form>
+        <Flex direction={'column'} gap={2}>
+          <Input
+            value={value}
+            onChange={onChange}
+            errorMessage={errorMessage}
+          />
+          <Flex justifyContent={'space-between'} alignItems={'center'}>
+            <Flex>
+              <ListTabsButton onClick={onParseTabs} />
+            </Flex>
+            {urlsCount && <Text>{`${LINKS_COUNT_TEXT} ${urlsCount}`}</Text>}
+            <Flex gap={2} alignItems={'center'}>
+              {!disabled && <ClipboardButton text={value} size={'l'} />}
+              <ExtractButton disabled={disabled} onClick={onExtract} />
+              <OpenAllButton disabled={disabled} onClick={onOpenAll} />
+            </Flex>
+          </Flex>
+        </Flex>
+      </form>
+    </>
+  );
+};

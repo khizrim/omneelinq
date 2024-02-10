@@ -6,11 +6,9 @@ export const openAllUrls = async (urls: string[], lazyload: boolean) => {
   let currentTab = 0;
 
   const onTabLoad = async (
-    tabId: number,
+    _tabId: number,
     changeInfo: chrome.tabs.TabChangeInfo
   ) => {
-    console.log(tabId, changeInfo.status);
-
     if (changeInfo.status === 'complete') {
       currentTab++;
 

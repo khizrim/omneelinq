@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Gear, Xmark } from '@gravity-ui/icons';
 import { Flex } from '@gravity-ui/uikit';
 
+import { Button } from 'src/components/Button';
 import {
   RemoveDuplicatesButton,
   type RemoveDuplicatesButtonsProps,
@@ -13,8 +14,6 @@ import {
 } from 'src/components/Buttons/SortListButton';
 import { LazyLoadSwitch } from 'src/components/Switches/LazyLoadSwitch';
 import { PasteHtmlSwitch } from 'src/components/Switches/PasteHtmlSwitch';
-
-import { Button } from '../Button';
 
 type OptionsProps = Partial<SortListButtonProps & RemoveDuplicatesButtonsProps>;
 
@@ -31,7 +30,7 @@ export const Options = ({
 
   return (
     <Flex justifyContent={'space-between'} alignItems={'center'}>
-      <Flex gap={4}>
+      <Flex gap={2}>
         {onSort && <SortListButton disabled={disabled} onSort={onSort} />}
         {onRemoveDuplicates && (
           <RemoveDuplicatesButton

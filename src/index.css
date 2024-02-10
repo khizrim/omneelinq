@@ -24,4 +24,5 @@ body {
 
 .g-root_theme_dark {
   --g-color-base-background: rgb(35 35 35);
+  --g-color-text-brand-contrast: rgb(0 0 0);
 }

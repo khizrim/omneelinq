@@ -7,20 +7,17 @@ import type { SortDirection } from 'src/components';
 import { Form, TopBar } from 'src/components';
 
 import { extractUrls } from 'src/helpers/extract-urls-from-text';
-import { getLinksFromHtml } from 'src/helpers/get-links-from-html';
 import { getUniqueUrlsArray } from 'src/helpers/get-unique-urls-array';
 import { getUrlsArray } from 'src/helpers/get-urls-array';
 import { parseTabUrls } from 'src/helpers/parse-tab-urls';
 import { sortUrls } from 'src/helpers/sort-urls';
 import { useErrorMessage } from 'src/hooks/useErrorMessage';
 import { useModEnterKeyPress } from 'src/hooks/useModEnterKeyPress';
-import { usePaste } from 'src/hooks/usePaste';
 import { useUrls } from 'src/hooks/useUrls';
 import { useSettingsStore } from 'src/store/store';
 import {
   LOCAL_STORAGE_LAZY_LOAD_KEY,
   LOCAL_STORAGE_NOTIFICATIONS_KEY,
-  LOCAL_STORAGE_PASTE_HTML_KEY,
   LOCAL_STORAGE_SORT_KEY,
   LOCAL_STORAGE_URLS_KEY,
   UPDATE_NOTIFICATION_TEXTS,
@@ -45,65 +42,11 @@ export const App = () => {
     setIsEmptyList(true);
   };
 
-  const handlePaste = useCallback(
-    (e: ClipboardEvent, pasteHtml: boolean) => {
-      const textarea = e.target as HTMLTextAreaElement;
-
-      const [start, end] = [
-        textarea.selectionStart || 0,
-        textarea.selectionEnd || 0,
-      ];
-      const textAreaValue = textarea.value;
-
-      const clipboardDataKey = pasteHtml ? 'text/html' : 'text/plain';
-      let clipboardData = e.clipboardData?.getData(clipboardDataKey) || '';
-
-      if (pasteHtml) {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = clipboardData;
-
-        const links = getLinksFromHtml(tempDiv, false);
-        clipboardData = links.join('\n');
-      }
-
-      const updatedValue =
-        textAreaValue.substring(0, start) +
-        clipboardData +
-        textAreaValue.substring(end);
-
-      setUrls(updatedValue);
-
-      textarea.selectionStart = start + clipboardData.length;
-      textarea.selectionEnd = start + clipboardData.length;
-
-      setIsEmptyList(!updatedValue);
-    },
-    [getLinksFromHtml, setUrls, setIsEmptyList]
-  );
-
   const handleInputChange = useCallback(
     (e: { target: { value: SetStateAction<string> } }) => {
-      const inputValue = String(e.target.value);
-
-      if (inputValue) {
-        resetErrorMessage();
-        console.log('And here');
-        setUrls(inputValue);
-        setIsEmptyList(false);
-      } else {
-        setUrls('');
-        setIsEmptyList(true);
-        setSettings((prevState) => {
-          return {
-            ...prevState,
-            [LOCAL_STORAGE_URLS_KEY]: '',
-            [LOCAL_STORAGE_SORT_KEY]: 'unset',
-          };
-        });
-        resetErrorMessage();
-      }
+      setUrls(String(e.target.value));
     },
-    [setUrls, setIsEmptyList, resetErrorMessage]
+    [setUrls]
   );
 
   const handleUrlExtraction = useCallback(() => {
@@ -211,14 +154,13 @@ export const App = () => {
   }, []);
 
   useModEnterKeyPress(handleOpenAllUrls);
-  usePaste(handlePaste, settings[LOCAL_STORAGE_PASTE_HTML_KEY] === 'on');
 
   return (
     <ThemeProvider>
       <Flex
         className={spacing({ pt: 8, px: 8, pb: 10 })}
         direction={'column'}
-        width={620}
+        width={720}
         gap={2}
       >
         <TopBar />

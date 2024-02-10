@@ -7,9 +7,17 @@ import type {
   SwitchTextsProps,
 } from './types';
 
+export const CHROME_WEB_STORE_URL = 'https://chromewebstore.google.com';
+
+export const EXTENSION_STORE_ID = 'dhagnbnofnklmhfdggckcpmhafmblajf';
+
 export const EXTENSION_NAME = getMessage('extName');
 
 export const EXTENSION_VERSION = getVersion();
+
+export const MAINTAINER_NICKNAME = 'khizrim';
+
+export const MAINTAINER_URL = 'https://khizrim.ru';
 
 export const MAINTAINER_EMAIL = 'khizrim@khizrim.ru';
 
@@ -78,6 +86,10 @@ export const VALIDATION_ERROR_TEXTS = {
 export const BUG_REPORT_TEXTS = {
   subject: getMessage('subjectBugReport'),
   label: getMessage('labelReportBugButton'),
+};
+
+export const RATE_LINK_TEXTS = {
+  title: getMessage('rateExtensionLinkTitle'),
 };
 
 export const WHATS_NEW_BUTTON_TEXTS = {
